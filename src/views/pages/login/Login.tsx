@@ -1,5 +1,8 @@
-import React, { useReducer } from "react";
+import React, { useState } from "react";
 import tryLogin from "../../../utils/auth";
+import { Formik } from "formik";
+import { loginSchema } from "../../../utils/yup/loginSchema";
+import CIcon from "@coreui/icons-react";
 import {
   CButton,
   CCard,
@@ -13,86 +16,126 @@ import {
   CInputGroupPrepend,
   CInputGroupText,
   CRow,
+  CModal,
+  CModalHeader,
+  CModalBody,
+  CModalFooter,
 } from "@coreui/react";
-import CIcon from "@coreui/icons-react";
 
 const Login: React.FC = () => {
-  const [inputsContent, setInputsContent] = useReducer(
-    (state: any, newState: any) => ({
-      ...state,
-      ...newState,
-    }),
-    {
-      login: "",
-      password: "",
-    }
-  );
+  const [modal, setModal] = useState(false);
 
-  const handleInputChange = (e: any) => {
-    setInputsContent({
-      [e.target.name]: e.target.value,
-    });
+  const toggle = () => {
+    setModal(!modal);
   };
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    e.target.reset();
-    const loginValid = await tryLogin(inputsContent);
-    console.log("is login valid? -", loginValid);
+  const handleSubmit = async (values: any, resetForm: any) => {
+    const loginValid = await tryLogin(values);
+
+    if (!loginValid) {
+      resetForm();
+      toggle();
+    }
   };
 
   return (
     <div className="c-app c-default-layout flex-row align-items-center">
+      <CModal show={modal} onClose={toggle} centered>
+        <CModalHeader closeButton>Something went wrong</CModalHeader>
+        <CModalBody>Please try again</CModalBody>
+        <CModalFooter>
+          <CButton color="secondary" onClick={toggle}>
+            Go back
+          </CButton>
+        </CModalFooter>
+      </CModal>
+
       <CContainer>
         <CRow className="justify-content-center">
           <CCol md="8">
             <CCardGroup>
               <CCard className="p-4">
                 <CCardBody>
-                  <CForm onSubmit={(e: any) => handleSubmit(e)}>
-                    <h1>Login</h1>
-                    <p className="text-muted">Sign In to your account</p>
-                    <CInputGroup className="mb-3">
-                      <CInputGroupPrepend>
-                        <CInputGroupText>
-                          <CIcon name="cil-user" />
-                        </CInputGroupText>
-                      </CInputGroupPrepend>
-                      <CInput
-                        name="login"
-                        type="text"
-                        placeholder="Username"
-                        autoComplete="username"
-                        onChange={(e) => handleInputChange(e)}
-                      />
-                    </CInputGroup>
-                    <CInputGroup className="mb-4">
-                      <CInputGroupPrepend>
-                        <CInputGroupText>
-                          <CIcon name="cil-lock-locked" />
-                        </CInputGroupText>
-                      </CInputGroupPrepend>
-                      <CInput
-                        name="password"
-                        type="password"
-                        placeholder="Password"
-                        autoComplete="current-password"
-                        onChange={(e) => handleInputChange(e)}
-                      />
-                    </CInputGroup>
-                    <CRow>
-                      <CCol xs="6">
-                        <CButton color="primary" className="px-4" type="submit">
-                          Login
-                        </CButton>
-                      </CCol>
-                      <CCol xs="6" className="text-right">
-                        <CButton color="link" className="px-0">
-                          Forgot password?
-                        </CButton>
-                      </CCol>
-                    </CRow>
-                  </CForm>
+                  <Formik
+                    validationSchema={loginSchema}
+                    validateOnChange
+                    onSubmit={(values, { resetForm }) =>
+                      handleSubmit(values, resetForm)
+                    }
+                    initialValues={{
+                      login: "",
+                      password: "",
+                    }}
+                  >
+                    {({
+                      handleSubmit,
+                      handleChange,
+                      handleBlur,
+                      values,
+                      touched,
+                      errors,
+                    }) => {
+                      return (
+                        <CForm onSubmit={handleSubmit}>
+                          <h1>Login</h1>
+                          <p className="text-muted">Sign In to your account</p>
+                          <CInputGroup className="mb-3">
+                            <CInputGroupPrepend>
+                              <CInputGroupText>
+                                <CIcon name="cil-user" />
+                              </CInputGroupText>
+                            </CInputGroupPrepend>
+                            <CInput
+                              name="login"
+                              type="text"
+                              placeholder="Username"
+                              autoComplete="username"
+                              value={values.login}
+                              onChange={handleChange}
+                              valid={!!(touched.login && !errors.login)}
+                              invalid={!!(touched.login && errors.login)}
+                              onBlur={handleBlur}
+                            />
+                          </CInputGroup>
+                          <CInputGroup className="mb-4">
+                            <CInputGroupPrepend>
+                              <CInputGroupText>
+                                <CIcon name="cil-lock-locked" />
+                              </CInputGroupText>
+                            </CInputGroupPrepend>
+                            <CInput
+                              name="password"
+                              type="password"
+                              placeholder="Password"
+                              autoComplete="current-password"
+                              value={values.password}
+                              onChange={handleChange}
+                              valid={!!(touched.password && !errors.password)}
+                              invalid={!!(touched.password && errors.password)}
+                              onBlur={handleBlur}
+                            />
+                          </CInputGroup>
+                          <CRow>
+                            <CCol xs="6">
+                              <CButton
+                                color="primary"
+                                className="px-4"
+                                type="submit"
+                                disabled={!(touched.login && !errors.password)}
+                              >
+                                Login
+                              </CButton>
+                            </CCol>
+                            <CCol xs="6" className="text-right">
+                              <CButton color="link" className="px-0">
+                                Forgot password?
+                              </CButton>
+                            </CCol>
+                          </CRow>
+                        </CForm>
+                      );
+                    }}
+                  </Formik>
                 </CCardBody>
               </CCard>
               <CCard
