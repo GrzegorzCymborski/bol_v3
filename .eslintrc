@@ -22,7 +22,6 @@
     "react-hooks/exhaustive-deps": "warn",
     "jsx-a11y/anchor-is-valid": 0,
     "@typescript-eslint/no-unused-vars": 0,
-    "prettier/prettier": "error",
     "react/react-in-jsx-scope": 0,
     "react/display-name": 0,
     "react/prop-types": 0,
@@ -36,7 +35,13 @@
     "@typescript-eslint/no-non-null-assertion": 0,
     "no-undef": 0,
     "jsx-a11y/label-has-for": 0,
-    "jsx-a11y/no-noninteractive-tabindex": 0
+    "jsx-a11y/no-noninteractive-tabindex": 0,
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
   },
   "parserOptions": {
     "ecmaVersion": 12,
