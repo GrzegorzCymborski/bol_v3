@@ -1,20 +1,22 @@
-import { CBadge } from "@coreui/react";
-import { useState, useEffect } from "react";
+import React, { lazy, Suspense } from "react";
+import { HashRouter, Route, Switch } from "react-router-dom";
+
+const Login = lazy(() => import("./views/pages/login/Login"));
+const Layout = lazy(() => import("./containers/Layout"));
 
 const App: React.FC = () => {
-  const [counter, setCounter] = useState(0);
-
-  useEffect(() => {
-    setTimeout(() => setCounter(counter + 1), 1000);
-  }, [counter]);
-
   return (
-    <>
-      <CBadge color="primary"> Primartt34try color badge</CBadge>
-
-      <CBadge color="primary"> {counter}</CBadge>
-    </>
+    <HashRouter>
+      <Suspense fallback={<h1>🚧</h1>}>
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <Route path="/" component={Layout} />
+        </Switch>
+      </Suspense>
+    </HashRouter>
   );
 };
 
 export default App;
+
+// TODO: add fallback component
