@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from "react";
-import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { auth } from "./firebase/firebase";
 
@@ -21,24 +21,24 @@ const App: React.FC = () => {
   console.log("app.tsx - isUserLoged", isUserLoged);
 
   const userLoged = (
-    <HashRouter>
+    <BrowserRouter>
       <Suspense fallback={<h1>🚧</h1>}>
         <Switch>
           <Route path="/" component={Layout} />
         </Switch>
       </Suspense>
-    </HashRouter>
+    </BrowserRouter>
   );
 
   const userNotLoged = (
-    <HashRouter>
+    <BrowserRouter>
       <Suspense fallback={<h1>🚧</h1>}>
         <Switch>
           <Route exact path="/login" component={Login} />
           <Redirect from="/" to="/login" />
         </Switch>
       </Suspense>
-    </HashRouter>
+    </BrowserRouter>
   );
 
   return <>{isUserLoged ? userLoged : userNotLoged}</>;
