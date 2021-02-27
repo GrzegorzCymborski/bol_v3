@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useReducer } from "react";
+import tryLogin from "../../../utils/auth";
 import {
   CButton,
   CCard,
@@ -16,6 +17,30 @@ import {
 import CIcon from "@coreui/icons-react";
 
 const Login: React.FC = () => {
+  const [inputsContent, setInputsContent] = useReducer(
+    (state: any, newState: any) => ({
+      ...state,
+      ...newState,
+    }),
+    {
+      login: "",
+      password: "",
+    }
+  );
+
+  const handleInputChange = (e: any) => {
+    setInputsContent({
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    e.target.reset();
+    const loginValid = await tryLogin(inputsContent);
+    console.log("is login valid? -", loginValid);
+  };
+
   return (
     <div className="c-app c-default-layout flex-row align-items-center">
       <CContainer>
@@ -24,7 +49,7 @@ const Login: React.FC = () => {
             <CCardGroup>
               <CCard className="p-4">
                 <CCardBody>
-                  <CForm>
+                  <CForm onSubmit={(e: any) => handleSubmit(e)}>
                     <h1>Login</h1>
                     <p className="text-muted">Sign In to your account</p>
                     <CInputGroup className="mb-3">
@@ -34,9 +59,11 @@ const Login: React.FC = () => {
                         </CInputGroupText>
                       </CInputGroupPrepend>
                       <CInput
+                        name="login"
                         type="text"
                         placeholder="Username"
                         autoComplete="username"
+                        onChange={(e) => handleInputChange(e)}
                       />
                     </CInputGroup>
                     <CInputGroup className="mb-4">
@@ -46,14 +73,16 @@ const Login: React.FC = () => {
                         </CInputGroupText>
                       </CInputGroupPrepend>
                       <CInput
+                        name="password"
                         type="password"
                         placeholder="Password"
                         autoComplete="current-password"
+                        onChange={(e) => handleInputChange(e)}
                       />
                     </CInputGroup>
                     <CRow>
                       <CCol xs="6">
-                        <CButton color="primary" className="px-4">
+                        <CButton color="primary" className="px-4" type="submit">
                           Login
                         </CButton>
                       </CCol>
@@ -90,3 +119,5 @@ const Login: React.FC = () => {
 };
 
 export default Login;
+
+// TODO: Fix types

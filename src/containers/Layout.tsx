@@ -11,7 +11,12 @@ const Layout: React.FC = () => {
     });
   };
 
-  return <button onClick={tryLogin}>isPies layout component</button>;
+  return (
+    <>
+      <button onClick={tryLogin}>login</button>
+      <button onClick={() => auth.signOut()}>logout</button>
+    </>
+  );
 };
 
 export default Layout;
