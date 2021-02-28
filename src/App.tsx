@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { useEffect } from "react";
-import { auth } from "./firebase/firebase";
+import { auth, firestore } from "./firebase/firebase";
 import { useAppSelector, useAppDispatch } from "./hooks/reduxHooks";
 import { login, logout } from "./redux/user";
 import Spinner from "./components/spinner/Spinner";
@@ -10,13 +10,19 @@ const Login = lazy(() => import("./views/pages/login/Login"));
 const Layout = lazy(() => import("./containers/Layout"));
 
 const App: React.FC = () => {
+  const userDatabase = firestore.collection("users");
   const dispatch = useAppDispatch();
   const { userLoged } = useAppSelector((state: any) => state.user);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        dispatch(login());
+        userDatabase
+          .doc(user.uid)
+          .get()
+          .then((doc) => {
+            dispatch(login(doc.data()));
+          });
       } else {
         dispatch(logout());
       }
