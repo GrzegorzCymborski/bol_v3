@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { auth } from "./firebase/firebase";
 import { useAppSelector, useAppDispatch } from "./hooks/reduxHooks";
 import { login, logout } from "./redux/user";
+import Spinner from "./components/spinner/Spinner";
 
 const Login = lazy(() => import("./views/pages/login/Login"));
 const Layout = lazy(() => import("./containers/Layout"));
@@ -26,30 +27,17 @@ const App: React.FC = () => {
 
   console.log("app.tsx - isUserLoged", userLoged);
 
-  const userLoged2 = (
+  return (
     <BrowserRouter>
-      <Suspense fallback={<h1>🚧</h1>}>
-        <Switch>
-          <Route path="/" component={Layout} />
-        </Switch>
-      </Suspense>
-    </BrowserRouter>
-  );
-
-  const userNotLoged = (
-    <BrowserRouter>
-      <Suspense fallback={<h1>🚧</h1>}>
+      <Suspense fallback={<Spinner />}>
         <Switch>
           <Route exact path="/login" component={Login} />
-          <Redirect from="/" to="/login" />
+          <Route exact path="/" component={userLoged ? Layout : Login} />
+          <Route path="*" render={() => <Redirect to="/" />} />
         </Switch>
       </Suspense>
     </BrowserRouter>
   );
-
-  return <>{userLoged ? userLoged2 : userNotLoged}</>;
 };
 
 export default App;
-
-// TODO: add fallback component
