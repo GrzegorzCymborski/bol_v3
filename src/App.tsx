@@ -1,26 +1,32 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { auth } from "./firebase/firebase";
+import { useAppSelector, useAppDispatch } from "./hooks/reduxHooks";
+import { login, logout } from "./redux/user";
 
 const Login = lazy(() => import("./views/pages/login/Login"));
 const Layout = lazy(() => import("./containers/Layout"));
 
 const App: React.FC = () => {
-  const [isUserLoged, setUserLoged] = useState(false);
+  const dispatch = useAppDispatch();
+  const { userLoged } = useAppSelector((state: any) => state.user);
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUserLoged(!!user);
       if (user) {
-        setUserLoged(!!user);
+        dispatch(login());
+      } else {
+        dispatch(logout());
       }
     });
     return unsubscribe;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log("app.tsx - isUserLoged", isUserLoged);
+  console.log("app.tsx - isUserLoged", userLoged);
 
-  const userLoged = (
+  const userLoged2 = (
     <BrowserRouter>
       <Suspense fallback={<h1>🚧</h1>}>
         <Switch>
@@ -41,7 +47,7 @@ const App: React.FC = () => {
     </BrowserRouter>
   );
 
-  return <>{isUserLoged ? userLoged : userNotLoged}</>;
+  return <>{userLoged ? userLoged2 : userNotLoged}</>;
 };
 
 export default App;
