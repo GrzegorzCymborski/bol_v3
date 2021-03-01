@@ -1,3 +1,5 @@
+import { cilSearch, cilCart, cilCloudUpload, cilNoteAdd } from "@coreui/icons";
+
 import {
   cibSkype,
   cibFacebook,
@@ -247,5 +249,11 @@ export const icons = Object.assign(
     cibPaypal,
     cibGooglePay,
     cibCcAmex,
+  },
+  {
+    cilSearch,
+    cilCart,
+    cilCloudUpload,
+    cilNoteAdd,
   }
 );
