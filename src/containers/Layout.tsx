@@ -1,21 +1,18 @@
-import firebase from "firebase/app";
-import { auth } from "../firebase/firebase";
+import Sidebar from "./Sidebar";
+import Header from "./Header";
 
 const Layout: React.FC = () => {
-  const tryLogin = () => {
-    auth.setPersistence(firebase.auth.Auth.Persistence.SESSION).then(() => {
-      auth
-        .signInWithEmailAndPassword("xxx", "xxx")
-        .then((res) => console.log("auth ok!", res))
-        .catch((err) => console.log("auth error", err));
-    });
-  };
-
   return (
-    <>
-      <button onClick={tryLogin}>login</button>
-      <button onClick={() => auth.signOut()}>logout</button>
-    </>
+    <div className="c-app c-default-layout">
+      <Sidebar />
+      <div className="c-wrapper">
+        <Header />
+        <div className="c-body">
+          <h1>🚧content🚧</h1>
+        </div>
+        <h1>🚧footer🚧</h1>
+      </div>
+    </div>
   );
 };
 
