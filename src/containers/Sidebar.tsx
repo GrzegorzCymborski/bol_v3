@@ -14,7 +14,7 @@ import {
 
 import navigation from "./_nav";
 
-const TheSidebar = () => {
+const Sidebar: React.FC = () => {
   const dispatch = useAppDispatch();
   const sidebarShow = useAppSelector((state) => state.sidebar.sidebarShow);
 
@@ -39,4 +39,4 @@ const TheSidebar = () => {
   );
 };
 
-export default React.memo(TheSidebar);
+export default Sidebar;

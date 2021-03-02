@@ -1,5 +1,6 @@
 import Sidebar from "./Sidebar";
 import Header from "./Header";
+import Footer from "./Footer";
 
 const Layout: React.FC = () => {
   return (
@@ -10,7 +11,7 @@ const Layout: React.FC = () => {
         <div className="c-body">
           <h1>🚧content🚧</h1>
         </div>
-        <h1>🚧footer🚧</h1>
+        <Footer />
       </div>
     </div>
   );
