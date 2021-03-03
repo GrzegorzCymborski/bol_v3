@@ -17,7 +17,7 @@ const _nav = [
   {
     _tag: "CSidebarNavItem",
     name: "Tracked",
-    to: "/dashboard/tracked",
+    to: "/dashboard/testPage",
     icon: <CIcon name="cil-cart" customClasses="c-sidebar-nav-icon" />,
   },
   {

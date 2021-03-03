@@ -37,8 +37,9 @@ const App: React.FC = () => {
     <BrowserRouter>
       <Suspense fallback={<Spinner />}>
         <Switch>
-          <Route exact path="/login" component={Login} />
           <Route exact path="/" component={userLoged ? Layout : Login} />
+          <Route path="/login" component={Login} />
+          <Route path="/dashboard" component={userLoged ? Layout : Login} />
           <Route path="*" render={() => <Redirect to="/" />} />
         </Switch>
       </Suspense>
