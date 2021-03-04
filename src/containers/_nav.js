@@ -17,7 +17,7 @@ const _nav = [
   {
     _tag: "CSidebarNavItem",
     name: "Tracked",
-    to: "/dashboard/testPage",
+    to: "/dashboard/tracked",
     icon: <CIcon name="cil-cart" customClasses="c-sidebar-nav-icon" />,
   },
   {
@@ -27,13 +27,13 @@ const _nav = [
   {
     _tag: "CSidebarNavItem",
     name: "Combine files",
-    to: "/utils/combine2",
+    to: "/dashboard/utils/combine2",
     icon: "cil-note-add",
   },
   {
     _tag: "CSidebarNavItem",
     name: "Upload EANs",
-    to: "/utils/uploadEAN",
+    to: "/dashboard/utils/uploadEAN",
     icon: "cil-cloud-upload",
   },
   {
