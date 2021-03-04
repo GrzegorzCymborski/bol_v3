@@ -1,4 +1,11 @@
-import { cilSearch, cilCart, cilCloudUpload, cilNoteAdd } from "@coreui/icons";
+import {
+  cilSearch,
+  cilCart,
+  cilCloudUpload,
+  cilNoteAdd,
+  cilAlarm,
+  cilMemory,
+} from "@coreui/icons";
 
 import {
   cibSkype,
@@ -255,5 +262,7 @@ export const icons = Object.assign(
     cilCart,
     cilCloudUpload,
     cilNoteAdd,
+    cilAlarm,
+    cilMemory,
   }
 );
