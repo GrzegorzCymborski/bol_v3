@@ -28,7 +28,10 @@ const Dashboard: React.FC = () => {
   const { userAuthID } = useAppSelector((state: any) => state.user);
   const urlStatsLink = `${process.env.REACT_APP_BASE_URL}/statistics`;
   const { totalRows, lastUpdate, categories = [] } = data;
-  const fields = ["category", "rows"];
+  const fields = [
+    { key: "category", label: "Categories", _style: { width: "80%" } },
+    { key: "rows", label: "Records", _style: { width: "20%" }, sorter: true },
+  ];
 
   return (
     <CRow>
@@ -92,6 +95,10 @@ const Dashboard: React.FC = () => {
                   fields={fields}
                   itemsPerPage={50}
                   size="sm"
+                  sorter
+                  scopedSlots={{
+                    rows: (item: any) => <td>{formatNumber(item.rows)}</td>,
+                  }}
                 />
               </CCardBody>
             </CCard>
