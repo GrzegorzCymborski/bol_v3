@@ -15,8 +15,12 @@ import { statsData } from "../../../API";
 
 const Dashboard: React.FC = () => {
   const { userAuthID } = useAppSelector((state: any) => state.user);
-  const { data = "", isLoading, isError } = useQuery("stats fetch", () =>
-    statsData(userAuthID)
+  const { data = "", isLoading, isError } = useQuery(
+    "stats fetch",
+    () => statsData(userAuthID),
+    {
+      refetchOnWindowFocus: false,
+    }
   );
   const { totalRows, lastUpdate, categories = [] } = data;
 
