@@ -11,23 +11,15 @@ import {
   CWidgetIcon,
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
+import { statsData } from "../../../API";
 
 const Dashboard: React.FC = () => {
-  const dataFetching = async () => {
-    const response = await fetch(urlStatsLink, {
-      headers: { Authorization: userAuthID },
-    });
-    return await response.json();
-  };
-
-  const { data = "", isLoading, isError } = useQuery(
-    "stats fetch",
-    dataFetching
-  );
-
   const { userAuthID } = useAppSelector((state: any) => state.user);
-  const urlStatsLink = `${process.env.REACT_APP_BASE_URL}/statistics`;
+  const { data = "", isLoading, isError } = useQuery("stats fetch", () =>
+    statsData(userAuthID)
+  );
   const { totalRows, lastUpdate, categories = [] } = data;
+
   const fields = [
     { key: "category", label: "Categories", _style: { width: "80%" } },
     { key: "rows", label: "Records", _style: { width: "20%" }, sorter: true },
