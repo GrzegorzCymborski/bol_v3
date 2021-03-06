@@ -64,9 +64,9 @@ const SearchPage: React.FC = () => {
     ratingMax,
     category,
   }: UrlProps) => {
-    const queryString = `name=${encodeURIComponent(
-      name.trim()
-    )}&price=${priceMin}&price=${priceMax}&rate=${ratingMin}&rate=${ratingMax}${
+    const queryString = `${
+      name ? `name=${encodeURIComponent(name.trim())}&` : ""
+    }price=${priceMin}&price=${priceMax}&rate=${ratingMin}&rate=${ratingMax}${
       category ? `&category=${category}` : ""
     }&records=${results}&limit=100`;
 
@@ -76,7 +76,6 @@ const SearchPage: React.FC = () => {
   useEffect(() => {
     if (queryURL) {
       productsQuery.refetch();
-      console.log("dupa");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryURL]);
@@ -137,7 +136,6 @@ const SearchPage: React.FC = () => {
                             value={values.name}
                             onChange={handleChange}
                             placeholder="What are you looking for"
-                            valid={!!(touched.name && !errors.name)}
                             invalid={!!(touched.name && errors.name)}
                             onBlur={handleBlur}
                           />
@@ -159,10 +157,8 @@ const SearchPage: React.FC = () => {
                             <CInput
                               name="results"
                               type="number"
-                              placeholder="100"
                               value={values.results}
                               onChange={handleChange}
-                              valid={!!(touched.results && !errors.results)}
                               invalid={!!(touched.results && errors.results)}
                               onBlur={handleBlur}
                             />
@@ -178,11 +174,9 @@ const SearchPage: React.FC = () => {
                             </CLabel>
                             <CInput
                               name="priceMin"
-                              placeholder="0"
                               value={values.priceMin}
                               onChange={handleChange}
                               type="number"
-                              valid={!!(touched.priceMin && !errors.priceMin)}
                               invalid={!!(touched.priceMin && errors.priceMin)}
                               onBlur={handleBlur}
                             />
@@ -198,11 +192,9 @@ const SearchPage: React.FC = () => {
                             </CLabel>
                             <CInput
                               name="priceMax"
-                              placeholder="1000"
                               value={values.priceMax}
                               onChange={handleChange}
                               type="number"
-                              valid={!!(touched.priceMax && !errors.priceMax)}
                               invalid={!!(touched.priceMax && errors.priceMax)}
                               onBlur={handleBlur}
                             />
@@ -218,11 +210,9 @@ const SearchPage: React.FC = () => {
                             </CLabel>
                             <CInput
                               name="ratingMin"
-                              placeholder="0"
                               value={values.ratingMin}
                               onChange={handleChange}
                               type="number"
-                              valid={!!(touched.ratingMin && !errors.ratingMin)}
                               invalid={
                                 !!(touched.ratingMin && errors.ratingMin)
                               }
@@ -240,11 +230,9 @@ const SearchPage: React.FC = () => {
                             </CLabel>
                             <CInput
                               name="ratingMax"
-                              placeholder="5"
                               value={values.ratingMax}
                               onChange={handleChange}
                               type="number"
-                              valid={!!(touched.ratingMax && !errors.ratingMax)}
                               invalid={
                                 !!(touched.ratingMax && errors.ratingMax)
                               }
@@ -260,7 +248,6 @@ const SearchPage: React.FC = () => {
                             name="category"
                             value={values.category}
                             onChange={handleChange}
-                            valid={touched.category}
                             onBlur={handleBlur}
                           >
                             <option value={""}>

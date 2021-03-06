@@ -1,11 +1,7 @@
 import * as yup from "yup";
 
 export const searchSchema = yup.object({
-  name: yup
-    .string()
-    .required("Search term is required ")
-    .min(3, "Minimum 3 chars")
-    .max(25, "Max 25 chars"),
+  name: yup.string().max(25, "Max 25 chars"),
   results: yup
     .number()
     .required("range: 1-99999 ")
