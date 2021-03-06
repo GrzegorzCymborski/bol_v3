@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "react-query";
 import { useAppSelector } from "../../../hooks/reduxHooks";
-import { statsData, productsData } from "../../../API";
+import {
+  statsData,
+  productsData,
+  handleTrackEAN,
+  queryTrackedEANs,
+} from "../../../API";
 import { Formik } from "formik";
 import { searchSchema } from "../../../utils/yup/searchSchema";
+import CIcon from "@coreui/icons-react";
 import {
   CButton,
   CCard,
   CCardBody,
   CCardHeader,
   CCol,
+  CCollapse,
   CDataTable,
   CForm,
   CFormGroup,
@@ -27,7 +34,6 @@ import {
   CToastBody,
   CToaster,
 } from "@coreui/react";
-import CIcon from "@coreui/icons-react";
 
 type UrlProps = {
   name: string;
@@ -40,6 +46,19 @@ type UrlProps = {
 };
 
 const SearchPage: React.FC = () => {
+  const [details, setDetails] = useState([]);
+
+  const toggleDetails = (index: never) => {
+    const position = details.indexOf(index);
+    let newDetails = details.slice();
+    if (position !== -1) {
+      newDetails.splice(position, 1);
+    } else {
+      newDetails = [...details, index];
+    }
+    setDetails(newDetails);
+  };
+
   const { userAuthID } = useAppSelector((state: any) => state.user);
   const [queryURL, setQueryURL] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -61,6 +80,11 @@ const SearchPage: React.FC = () => {
     }
   );
   const { data: data2, isError: isError2, isFetching } = productsQuery;
+
+  const eansQuery = useQuery("tracked eans", () =>
+    queryTrackedEANs(userAuthID)
+  );
+  const { data: { data: data3 = [] } = [] } = eansQuery;
 
   const composeUrl = ({
     name,
@@ -87,19 +111,6 @@ const SearchPage: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryURL, currentPage]);
 
-  // console.log(
-  //   "productsQuery",
-  //   "data",
-  //   data2,
-  //   "isError",
-  //   isError2,
-  //   "isLoading",
-  //   isLoading2,
-  //   "isFetching",
-  //   isFetching
-  // );
-  // console.log("productsQuery", "data", data2?.page);
-
   const fields = [
     { key: "product_img", label: "Image", _style: { width: "5%" } },
     { key: "name", label: "Name" },
@@ -107,7 +118,8 @@ const SearchPage: React.FC = () => {
     { key: "subcategory", label: "Subcategory", _style: { width: "10%" } },
     { key: "price", label: "Price", _style: { width: "5%" } },
     { key: "rating", label: "Rating", _style: { width: "5%" } },
-    { label: "Actions", _style: { width: "5%" } },
+    { key: "track", label: "Track", _style: { width: "5%" } },
+    { key: "show_details", label: "", _style: { width: "1%" } },
   ];
 
   return (
@@ -368,6 +380,51 @@ const SearchPage: React.FC = () => {
                         <CImg src={product_img} thumbnail />
                       </td>
                     ),
+                    track: ({ ean }: any) => (
+                      <td>
+                        {data3?.includes(ean) ? (
+                          <CIcon name="cilCheck" />
+                        ) : (
+                          <CIcon
+                            name="cil-cart"
+                            type="button"
+                            onClick={(e) => {
+                              const target = e.target as HTMLElement;
+
+                              console.log(ean);
+                              target.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="c-icon" role="img"><path fill="var(--ci-primary-color, currentColor)" d="M199.066,456l-7.379-7.514-3.94-3.9-86.2-86.2.053-.055L17.936,274.665l97.614-97.613,83.565,83.565L398.388,61.344,496,158.958,296.729,358.229,285.469,369.6ZM146.6,358.183l52.459,52.46.1-.1.054.054,52.311-52.311,11.259-11.368L450.746,158.958,398.388,106.6,199.115,305.871,115.55,222.306,63.191,274.665l83.464,83.463Z" class="ci-primary"></path></svg>`;
+                              handleTrackEAN(userAuthID, ean);
+                              eansQuery.refetch();
+                            }}
+                          />
+                        )}
+                      </td>
+                    ),
+                    show_details: (item: never, index: never) => {
+                      return (
+                        <td className="py-2">
+                          <CButton
+                            size="sm"
+                            onClick={() => {
+                              toggleDetails(index);
+                            }}
+                          >
+                            {details.includes(index) ? (
+                              <CIcon name="cilFullscreen" />
+                            ) : (
+                              <CIcon name="cilFullscreenExit" />
+                            )}
+                          </CButton>
+                        </td>
+                      );
+                    },
+                    details: (item: any, index: never) => {
+                      return (
+                        <CCollapse show={details.includes(index)}>
+                          <CCardBody>{JSON.stringify(item, null, 2)}</CCardBody>
+                        </CCollapse>
+                      );
+                    },
                   }}
                 />
               </CCardBody>
