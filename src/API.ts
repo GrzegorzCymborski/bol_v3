@@ -8,9 +8,16 @@ export const statsData: any = async (usrID: string) => {
   return await response.json();
 };
 
-export const productsData: any = async (usrID: string, queryString: string) => {
-  const response = await fetch(apiURL.concat(queryString), {
-    headers: { Authorization: usrID },
-  });
+export const productsData: any = async (
+  usrID: string,
+  queryString: string,
+  currentPage: number
+) => {
+  const response = await fetch(
+    apiURL + queryString + (currentPage && `&page=${currentPage}`),
+    {
+      headers: { Authorization: usrID },
+    }
+  );
   return await response.json();
 };
