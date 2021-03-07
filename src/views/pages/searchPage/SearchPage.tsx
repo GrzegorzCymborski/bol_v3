@@ -66,7 +66,7 @@ const SearchPage: React.FC = () => {
   const statsQuery = useQuery("stats fetch", () => statsData(userAuthID), {
     refetchOnWindowFocus: false,
   });
-  const { data, isError, isLoading } = statsQuery;
+  const { data = [], isError, isLoading } = statsQuery;
 
   const productsQuery = useQuery(
     "products fetch",
@@ -419,9 +419,29 @@ const SearchPage: React.FC = () => {
                       );
                     },
                     details: (item: any, index: never) => {
+                      const newArr = Object.entries(item).filter(
+                        (item: any) =>
+                          !item.includes("product_img") &&
+                          !item.includes("_links")
+                      );
                       return (
                         <CCollapse show={details.includes(index)}>
-                          <CCardBody>{JSON.stringify(item, null, 2)}</CCardBody>
+                          <CRow>
+                            <CCol sm="2">
+                              <CCardBody>
+                                <CImg src={item.product_img} fluidGrow />
+                              </CCardBody>
+                            </CCol>
+                            <CCol sm="4">
+                              <CCardBody>
+                                <CDataTable
+                                  items={newArr}
+                                  border
+                                  header={false}
+                                />
+                              </CCardBody>
+                            </CCol>
+                          </CRow>
                         </CCollapse>
                       );
                     },
