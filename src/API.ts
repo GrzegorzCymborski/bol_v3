@@ -54,3 +54,10 @@ export const queryTrackedEANs: any = async (usrID: string) => {
   });
   return await response.json();
 };
+
+export const fetchOffers: any = async (usrID: string, offersID: string) => {
+  const response = await fetch(`${process.env.REACT_APP_BASE_URL}${offersID}`, {
+    headers: { Authorization: usrID },
+  });
+  return await response.json();
+};

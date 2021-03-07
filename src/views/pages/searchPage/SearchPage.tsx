@@ -6,6 +6,7 @@ import {
   productsData,
   handleTrackEAN,
   queryTrackedEANs,
+  fetchOffers,
 } from "../../../API";
 import { Formik } from "formik";
 import { searchSchema } from "../../../utils/yup/searchSchema";
@@ -23,6 +24,7 @@ import {
   CImg,
   CInput,
   CLabel,
+  CLink,
   CModal,
   CModalBody,
   CModalHeader,
@@ -47,6 +49,7 @@ type UrlProps = {
 
 const SearchPage: React.FC = () => {
   const [details, setDetails] = useState([]);
+  const [moreDetails, setMoreDetails] = useState();
 
   const toggleDetails = (index: never) => {
     const position = details.indexOf(index);
@@ -54,8 +57,10 @@ const SearchPage: React.FC = () => {
     if (position !== -1) {
       newDetails.splice(position, 1);
     } else {
-      newDetails = [...details, index];
+      newDetails = [index];
     }
+    console.log("details", details);
+    console.log("detailsNew", newDetails);
     setDetails(newDetails);
   };
 
@@ -86,6 +91,16 @@ const SearchPage: React.FC = () => {
   );
   const { data: { data: data3 = [] } = [] } = eansQuery;
 
+  const fetchMoreQuery = useQuery(
+    "fetch more sellers",
+    () => fetchOffers(userAuthID, moreDetails),
+    {
+      refetchOnWindowFocus: false,
+      enabled: false,
+    }
+  );
+  const { data: data6 } = fetchMoreQuery;
+
   const composeUrl = ({
     name,
     results,
@@ -108,8 +123,20 @@ const SearchPage: React.FC = () => {
     if (queryURL) {
       productsQuery.refetch();
     }
+    if (moreDetails) {
+      fetchMoreQuery.refetch();
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryURL, currentPage]);
+
+  useEffect(() => {
+    if (moreDetails) {
+      fetchMoreQuery.refetch();
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [moreDetails]);
 
   const fields = [
     { key: "product_img", label: "Image", _style: { width: "5%" } },
@@ -391,7 +418,6 @@ const SearchPage: React.FC = () => {
                             onClick={(e) => {
                               const target = e.target as HTMLElement;
 
-                              console.log(ean);
                               target.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="c-icon" role="img"><path fill="var(--ci-primary-color, currentColor)" d="M199.066,456l-7.379-7.514-3.94-3.9-86.2-86.2.053-.055L17.936,274.665l97.614-97.613,83.565,83.565L398.388,61.344,496,158.958,296.729,358.229,285.469,369.6ZM146.6,358.183l52.459,52.46.1-.1.054.054,52.311-52.311,11.259-11.368L450.746,158.958,398.388,106.6,199.115,305.871,115.55,222.306,63.191,274.665l83.464,83.463Z" class="ci-primary"></path></svg>`;
                               handleTrackEAN(userAuthID, ean);
                               eansQuery.refetch();
@@ -426,19 +452,54 @@ const SearchPage: React.FC = () => {
                       );
                       return (
                         <CCollapse show={details.includes(index)}>
+                          {details.includes(index)
+                            ? setMoreDetails(item._links.offers)
+                            : null}
                           <CRow>
-                            <CCol sm="2">
+                            <CCol sm="6" md="4">
                               <CCardBody>
-                                <CImg src={item.product_img} fluidGrow />
+                                <CImg
+                                  src={item.product_img}
+                                  fluidGrow
+                                  height="400px"
+                                />
                               </CCardBody>
                             </CCol>
-                            <CCol sm="4">
+
+                            <CCol sm="6" md="4">
                               <CCardBody>
                                 <CDataTable
                                   items={newArr}
-                                  border
                                   header={false}
+                                  hover
+                                  addTableClasses={{ borderBottom: "0px" }}
                                 />
+                              </CCardBody>
+                            </CCol>
+
+                            <CCol sm="2" md="4">
+                              <CCardBody>
+                                <CCardHeader>Sellers:</CCardHeader>
+                                <CCardBody>
+                                  {data6?.map(
+                                    ({
+                                      offer_url,
+                                      seller,
+                                      _links: { self },
+                                    }: any) => (
+                                      <div key={offer_url}>
+                                        <CLink
+                                          className="btn"
+                                          href={`https://bol.com${offer_url}`}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                        >
+                                          {seller}
+                                        </CLink>
+                                      </div>
+                                    )
+                                  )}
+                                </CCardBody>
                               </CCardBody>
                             </CCol>
                           </CRow>
