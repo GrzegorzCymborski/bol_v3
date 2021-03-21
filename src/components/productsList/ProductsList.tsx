@@ -11,6 +11,7 @@ import {
   CRow,
 } from "@coreui/react";
 import { handleTrackEAN } from "../../API";
+import { definitions } from "../../types/swagger-types";
 import Sellers from "../sellers/Sellers";
 
 type ProductsDataPropsProduct = {
@@ -94,7 +95,7 @@ type ProductsListProps = {
   trackedEANs: number[];
   userAuthID: string;
   eansQuery: any;
-  toggleDetails: (arg: never) => void;
+  toggleDetails: (arg: number) => void;
   details: number[];
   setMoreDetails: (arg: any) => void;
   sellers: SellersProps[];
@@ -113,7 +114,6 @@ const ProductsList: React.FC<ProductsListProps> = ({
   sellers,
   setCurrentPage,
 }: ProductsListProps) => {
-  console.log(setMoreDetails);
   const fields = [
     { key: "product_img", label: "Image", _style: { width: "5%" } },
     { key: "name", label: "Name" },
@@ -134,12 +134,12 @@ const ProductsList: React.FC<ProductsListProps> = ({
                 items={productsData?.products}
                 fields={fields}
                 scopedSlots={{
-                  product_img: ({ product_img }: any) => (
+                  product_img: ({ product_img }: definitions["Product"]) => (
                     <td>
                       <CImg src={product_img} thumbnail />
                     </td>
                   ),
-                  track: ({ ean }: any) => (
+                  track: ({ ean }: definitions["Product"]) => (
                     <td>
                       {trackedEANs?.includes(ean) ? (
                         <CIcon name="cilCheck" />
@@ -158,7 +158,7 @@ const ProductsList: React.FC<ProductsListProps> = ({
                       )}
                     </td>
                   ),
-                  show_details: (item: never, index: never) => {
+                  show_details: (item: never, index: number) => {
                     return (
                       <td className="py-2">
                         <CButton
@@ -176,9 +176,9 @@ const ProductsList: React.FC<ProductsListProps> = ({
                       </td>
                     );
                   },
-                  details: (item: any, index: never) => {
+                  details: (item: definitions["Product"], index: number) => {
                     const newArr = Object.entries(item).filter(
-                      (item: any) =>
+                      (item) =>
                         !item.includes("product_img") &&
                         !item.includes("_links")
                     );
@@ -217,7 +217,7 @@ const ProductsList: React.FC<ProductsListProps> = ({
           <CPagination
             activePage={productsData?.page.current}
             pages={productsData?.page.pages}
-            onActivePageChange={(i: any) => setCurrentPage(i)}
+            onActivePageChange={(i: number) => setCurrentPage(i)}
             align="center"
             limit={5}
           />

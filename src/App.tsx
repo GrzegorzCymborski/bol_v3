@@ -12,7 +12,7 @@ const Layout = lazy(() => import("./containers/Layout"));
 const App: React.FC = () => {
   const userDatabase = firestore.collection("users");
   const dispatch = useAppDispatch();
-  const { userLoged } = useAppSelector((state: any) => state.user);
+  const { userLoged } = useAppSelector((state) => state.user);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {

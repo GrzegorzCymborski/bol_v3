@@ -24,10 +24,10 @@ type UrlProps = {
 };
 
 const SearchPage: React.FC = () => {
-  const [details, setDetails] = useState([]);
-  const [moreDetails, setMoreDetails] = useState();
+  const [details, setDetails] = useState<number[]>([]);
+  const [moreDetails, setMoreDetails] = useState<string>("");
 
-  const toggleDetails = (index: never) => {
+  const toggleDetails = (index: number) => {
     const position = details.indexOf(index);
     let newDetails = details.slice();
     if (position !== -1) {
@@ -35,10 +35,11 @@ const SearchPage: React.FC = () => {
     } else {
       newDetails = [...details, index];
     }
+
     setDetails(newDetails);
   };
 
-  const { userAuthID } = useAppSelector((state: any) => state.user);
+  const { userAuthID } = useAppSelector((state) => state.user);
   const [queryURL, setQueryURL] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
 

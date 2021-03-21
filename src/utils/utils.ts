@@ -3,9 +3,9 @@ const updateTime: any = (time: any) => {
   return newTime.toLocaleString("pl-PL");
 };
 
-const formatNumber: any = (num: number) => {
+const formatNumber = (num: number): string => {
   if (!num) {
-    return 0;
+    return "";
   }
   return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 };

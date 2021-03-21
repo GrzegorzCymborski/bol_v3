@@ -22,6 +22,14 @@ import {
   CModalFooter,
 } from "@coreui/react";
 
+type HandleSubmitProps = {
+  values: {
+    login: string;
+    password: string;
+  };
+  resetForm: () => void;
+};
+
 const Login: React.FC = () => {
   const [modal, setModal] = useState(false);
 
@@ -29,7 +37,7 @@ const Login: React.FC = () => {
     setModal(!modal);
   };
 
-  const handleSubmit = async (values: any, resetForm: any) => {
+  const handleSubmit = async ({ values, resetForm }: HandleSubmitProps) => {
     const loginValid = await tryLogin(values);
 
     if (!loginValid) {
@@ -60,7 +68,7 @@ const Login: React.FC = () => {
                     validationSchema={loginSchema}
                     validateOnChange
                     onSubmit={(values, { resetForm }) =>
-                      handleSubmit(values, resetForm)
+                      handleSubmit({ values, resetForm })
                     }
                     initialValues={{
                       login: "",

@@ -12,17 +12,15 @@ import {
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import { statsData } from "../../../API";
+import { definitions } from "../../../types/swagger-types";
 
 const Dashboard: React.FC = () => {
-  const { userAuthID } = useAppSelector((state: any) => state.user);
-  const { data = "", isLoading, isError } = useQuery(
-    "stats fetch",
-    () => statsData(userAuthID),
-    {
-      refetchOnWindowFocus: false,
-    }
-  );
-  const { totalRows, lastUpdate, categories = [] } = data;
+  const { userAuthID } = useAppSelector((state) => state.user);
+  const { data, isLoading, isError } = useQuery<
+    definitions["StatisticsResponse"]
+  >("stats fetch", () => statsData(userAuthID), {
+    refetchOnWindowFocus: false,
+  });
 
   const fields = [
     { key: "category", label: "Categories", _style: { width: "80%" } },
@@ -37,7 +35,11 @@ const Dashboard: React.FC = () => {
             <CWidgetIcon
               text="Total records"
               header={
-                isLoading ? "Loading" : isError ? "❌" : formatNumber(totalRows)
+                isLoading
+                  ? "Loading"
+                  : isError
+                  ? "❌"
+                  : formatNumber(data!.totalRows)
               }
               color={isError ? "dark" : "info"}
             >
@@ -52,7 +54,7 @@ const Dashboard: React.FC = () => {
                   ? "Loading"
                   : isError
                   ? "❌"
-                  : categories.length.toString()
+                  : data?.categories.length.toString()
               }
               color={isError ? "dark" : "info"}
             >
@@ -63,7 +65,11 @@ const Dashboard: React.FC = () => {
             <CWidgetIcon
               text="Last update"
               header={
-                isLoading ? "Loading" : isError ? "❌" : updateTime(lastUpdate)
+                isLoading
+                  ? "Loading"
+                  : isError
+                  ? "❌"
+                  : updateTime(data?.lastUpdate)
               }
               color={isError ? "dark" : "info"}
             >
@@ -87,13 +93,16 @@ const Dashboard: React.FC = () => {
             <CCard>
               <CCardBody>
                 <CDataTable
-                  items={categories}
+                  items={data?.categories}
                   fields={fields}
                   itemsPerPage={50}
                   size="sm"
                   sorter
                   scopedSlots={{
-                    rows: (item: any) => <td>{formatNumber(item.rows)}</td>,
+                    rows: (item: definitions["Summary"]) => {
+                      console.log(item);
+                      return <td>{formatNumber(item.rows)}</td>;
+                    },
                   }}
                 />
               </CCardBody>
