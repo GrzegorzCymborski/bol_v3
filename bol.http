@@ -1,0 +1,2 @@
+http://95.111.236.232:8108/collections/products/documents/search?q=rugzak&query_by=name&filter_by=score:[0..100]
+X-TYPESENSE-API-KEY:S4MAsEm9gY4OvLdSbUTLGAgcxMJClmmU

@@ -1,4 +1,4 @@
-const updateTime: any = (time: any) => {
+const updateTime = (time: string): string => {
   const newTime = new Date(time);
   return newTime.toLocaleString("pl-PL");
 };

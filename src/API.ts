@@ -1,19 +1,23 @@
+import { definitions } from "./types/swagger-types";
+
 const urlStatsLink = `${process.env.REACT_APP_BASE_URL}/statistics`;
 const apiURL = `${process.env.REACT_APP_BASE_URL}/products?`;
 const cartURL = `${process.env.REACT_APP_BASE_URL}/carts`;
 
-export const statsData: any = async (usrID: string) => {
+export const statsData = async (
+  usrID: string
+): Promise<definitions["StatisticsResponse"]> => {
   const response = await fetch(urlStatsLink, {
     headers: { Authorization: usrID },
   });
   return await response.json();
 };
 
-export const productsData: any = async (
+export const productsData = async (
   usrID: string,
   queryString: string,
   currentPage: number
-) => {
+): Promise<definitions["GetProductsResponse"]> => {
   const response = await fetch(
     apiURL + queryString + (currentPage && `&page=${currentPage}`),
     {
@@ -23,7 +27,10 @@ export const productsData: any = async (
   return await response.json();
 };
 
-export const handleTrackEAN: any = async (usrID: string, eanNo: number) => {
+export const handleTrackEAN = async (
+  usrID: string,
+  eanNo: number
+): Promise<void> => {
   const postBody = {
     eans: [eanNo],
   };
@@ -48,14 +55,19 @@ export const handleTrackEAN: any = async (usrID: string, eanNo: number) => {
   }
 };
 
-export const queryTrackedEANs: any = async (usrID: string) => {
+export const queryTrackedEANs = async (
+  usrID: string
+): Promise<{ data: number[] }> => {
   const response = await fetch(`${cartURL}/raw`, {
     headers: { Authorization: usrID },
   });
   return await response.json();
 };
 
-export const fetchOffers: any = async (usrID: string, offersID: string) => {
+export const fetchOffers = async (
+  usrID: string,
+  offersID: string
+): Promise<definitions["GetOffersResponse"]> => {
   const response = await fetch(`${process.env.REACT_APP_BASE_URL}${offersID}`, {
     headers: { Authorization: usrID },
   });

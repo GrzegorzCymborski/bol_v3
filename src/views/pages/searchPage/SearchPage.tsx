@@ -43,14 +43,14 @@ const SearchPage: React.FC = () => {
   const [queryURL, setQueryURL] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const statsQuery = useQuery("stats fetch", () => statsData(userAuthID), {
+  const statsQuery = useQuery("stats fetch", () => statsData(userAuthID!), {
     refetchOnWindowFocus: false,
   });
-  const { data = [], isError, isLoading } = statsQuery;
+  const { data, isError, isLoading } = statsQuery;
 
   const productsQuery = useQuery(
     "products fetch",
-    () => productsData(userAuthID, queryURL, currentPage),
+    () => productsData(userAuthID!, queryURL, currentPage),
     {
       enabled: false,
       refetchOnWindowFocus: false,
@@ -59,22 +59,28 @@ const SearchPage: React.FC = () => {
       cacheTime: 5000,
     }
   );
-  const { data: data2, isError: isError2, isFetching } = productsQuery;
-
+  const {
+    data: productsResponse,
+    isError: isError2,
+    isFetching,
+  } = productsQuery;
+  console.log("productsResponse", productsResponse);
   const eansQuery = useQuery("tracked eans", () =>
-    queryTrackedEANs(userAuthID)
+    queryTrackedEANs(userAuthID!)
   );
-  const { data: { data: data3 = [] } = [] } = eansQuery;
+
+  const { data: data99 } = eansQuery;
 
   const fetchMoreQuery = useQuery(
     "fetch more sellers",
-    () => fetchOffers(userAuthID, moreDetails),
+    () => fetchOffers(userAuthID!, moreDetails),
     {
       refetchOnWindowFocus: false,
       enabled: false,
     }
   );
-  const { data: data6 } = fetchMoreQuery;
+  const { data: arrWithSellers } = fetchMoreQuery;
+  console.log("arr", arrWithSellers);
 
   const composeUrl = ({
     name,
@@ -123,20 +129,20 @@ const SearchPage: React.FC = () => {
           isFetching={isFetching}
           isLoading={isLoading}
           isError={isError}
-          statistics={data}
+          statistics={data!}
           xs="12"
         />
 
         <ProductsList
-          productsQuery={productsQuery}
-          productsData={data2}
-          trackedEANs={data3}
-          userAuthID={userAuthID}
+          productsQuery={productsQuery ? productsQuery : undefined}
+          productsData={productsResponse ? productsResponse : undefined}
+          trackedEANs={data99?.data}
+          userAuthID={userAuthID!}
           eansQuery={eansQuery}
           toggleDetails={toggleDetails}
           details={details}
           setMoreDetails={setMoreDetails}
-          sellers={data6}
+          sellers={arrWithSellers ? arrWithSellers : undefined}
           setCurrentPage={setCurrentPage}
         />
       </CRow>

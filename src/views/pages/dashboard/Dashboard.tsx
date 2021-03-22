@@ -18,7 +18,7 @@ const Dashboard: React.FC = () => {
   const { userAuthID } = useAppSelector((state) => state.user);
   const { data, isLoading, isError } = useQuery<
     definitions["StatisticsResponse"]
-  >("stats fetch", () => statsData(userAuthID), {
+  >("stats fetch", () => statsData(userAuthID!), {
     refetchOnWindowFocus: false,
   });
 
@@ -69,7 +69,7 @@ const Dashboard: React.FC = () => {
                   ? "Loading"
                   : isError
                   ? "❌"
-                  : updateTime(data?.lastUpdate)
+                  : updateTime(data!.lastUpdate)
               }
               color={isError ? "dark" : "info"}
             >
@@ -100,7 +100,6 @@ const Dashboard: React.FC = () => {
                   sorter
                   scopedSlots={{
                     rows: (item: definitions["Summary"]) => {
-                      console.log(item);
                       return <td>{formatNumber(item.rows)}</td>;
                     },
                   }}

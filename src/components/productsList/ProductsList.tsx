@@ -16,12 +16,12 @@ import Sellers from "../sellers/Sellers";
 
 type ProductsDataPropsProduct = {
   name: string;
-  ean: any;
+  ean: number;
   product_img: string;
   brand: string;
   dimensions: string;
   weight: string;
-  category: string;
+  category?: string;
   subcategory: string;
   price: number;
   rating: number;
@@ -37,9 +37,9 @@ type ProductsDataProps = {
   page: ProductsDataPropsPage;
 };
 type Links = {
-  self: string;
-  carts: string;
-  economies: string;
+  self?: string;
+  carts?: string;
+  economies?: string;
 };
 type SellersProps = {
   offer_url: string;
@@ -54,16 +54,16 @@ type productsQueryPropsData = {
 };
 type productsQueryPropsProduct = {
   name: string;
-  ean: any;
+  ean: number;
   product_img: string;
   brand: string;
   dimensions: string;
   weight: string;
-  category: string;
+  category?: string;
   subcategory: string;
   price: number;
   rating: number;
-  _links: Links;
+  _links?: Links;
 };
 type productsQueryPropsPage = {
   current: number;
@@ -90,15 +90,15 @@ type productsQueryProps = {
   isStale: boolean;
 };
 type ProductsListProps = {
-  productsQuery: productsQueryProps;
-  productsData: ProductsDataProps;
-  trackedEANs: number[];
+  productsQuery: productsQueryProps | undefined;
+  productsData: ProductsDataProps | undefined;
+  trackedEANs: number[] | undefined;
   userAuthID: string;
   eansQuery: any;
   toggleDetails: (arg: number) => void;
   details: number[];
   setMoreDetails: (arg: any) => void;
-  sellers: SellersProps[];
+  sellers: SellersProps[] | undefined;
   setCurrentPage: (arg: number) => void;
 };
 

@@ -14,7 +14,7 @@ type Offers = {
 };
 
 type SellerProps = {
-  offers: Offers[];
+  offers: Offers[] | undefined;
   xs: string;
   md: string;
 };
@@ -25,7 +25,7 @@ const Sellers: React.FC<SellerProps> = ({ offers, xs, md }: SellerProps) => {
       <CCardBody>
         <CCardHeader>Sellers:</CCardHeader>
         <CCardBody>
-          {offers?.map(({ offer_url, seller }: any) => (
+          {offers?.map(({ offer_url, seller }) => (
             <div key={offer_url}>
               <CLink
                 className="btn"

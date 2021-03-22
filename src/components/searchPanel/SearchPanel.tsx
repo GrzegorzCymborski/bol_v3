@@ -210,7 +210,7 @@ const SearchPanel: React.FC<SearchPanelProps> = ({
                           </option>
                           {!isLoading &&
                             !isError &&
-                            statistics?.categories.map((cat: any) => (
+                            statistics?.categories.map((cat) => (
                               <option
                                 key={cat.category}
                                 value={cat.category.replace(/&/, "%26")}

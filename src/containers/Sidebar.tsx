@@ -16,12 +16,14 @@ import navigation from "./_nav";
 
 const Sidebar: React.FC = () => {
   const dispatch = useAppDispatch();
-  const sidebarShow = useAppSelector((state) => state.sidebar.sidebarShow);
+  const { sidebarShow } = useAppSelector((state) => state.sidebar);
 
   return (
     <CSidebar
       show={sidebarShow}
-      onShowChange={(val: any) => dispatch(changeState(val))}
+      onShowChange={(val: string) => {
+        dispatch(changeState(val));
+      }}
     >
       <CSidebarNav>
         <CCreateElement

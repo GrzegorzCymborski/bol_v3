@@ -5,10 +5,10 @@ import CIcon from "@coreui/icons-react";
 
 const Header: React.FC = () => {
   const dispatch = useAppDispatch();
-  const sidebarShow: any = useAppSelector((state) => state.sidebar.sidebarShow);
+  const { sidebarShow } = useAppSelector((state) => state.sidebar);
 
   const toggleSidebarMobile = () => {
-    const val = [false, "responsive"].includes(sidebarShow)
+    const val = [false, "responsive"].includes(sidebarShow!)
       ? true
       : "responsive";
     dispatch(changeState(val));
