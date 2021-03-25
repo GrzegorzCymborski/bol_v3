@@ -12,7 +12,7 @@ import {
 } from "@coreui/react";
 import { handleTrackEAN } from "../../API";
 import { definitions } from "../../types/swagger-types";
-import Sellers from "../sellers/Sellers";
+import ExpandedRow from "../expandedRow/ExpandedRow";
 
 type ProductsDataPropsProduct = {
   name: string;
@@ -41,12 +41,7 @@ type Links = {
   carts?: string;
   economies?: string;
 };
-type SellersProps = {
-  offer_url: string;
-  seller: string;
-  portal: string;
-  _links: Partial<Links>;
-};
+
 type productsQueryPropsData = {
   rows: number;
   products: productsQueryPropsProduct[];
@@ -97,8 +92,6 @@ type ProductsListProps = {
   eansQuery: any;
   toggleDetails: (arg: number) => void;
   details: number[];
-  setMoreDetails: (arg: any) => void;
-  sellers: SellersProps[] | undefined;
   setCurrentPage: (arg: number) => void;
 };
 
@@ -110,8 +103,6 @@ const ProductsList: React.FC<ProductsListProps> = ({
   eansQuery,
   toggleDetails,
   details,
-  setMoreDetails,
-  sellers,
   setCurrentPage,
 }: ProductsListProps) => {
   const fields = [
@@ -183,31 +174,35 @@ const ProductsList: React.FC<ProductsListProps> = ({
                         !item.includes("_links")
                     );
                     return (
-                      <CCollapse show={details.includes(index)}>
-                        {details.includes(index)
-                          ? setMoreDetails(item._links.offers)
-                          : null}
-                        <CRow className="mx-0">
-                          <CCol sm="2" md="4">
-                            <CCardBody>
-                              <CImg
-                                src={item.product_img}
-                                fluidGrow
-                                height="400px"
-                                className="d-none d-md-block"
-                              />
-                            </CCardBody>
-                          </CCol>
+                      <>
+                        {details.includes(index) && (
+                          <CCollapse show={details.includes(index)}>
+                            <CRow className="mx-0">
+                              <CCol sm="2" md="4">
+                                <CCardBody>
+                                  <CImg
+                                    src={item.product_img}
+                                    fluidGrow
+                                    height="400px"
+                                    className="d-none d-md-block"
+                                  />
+                                </CCardBody>
+                              </CCol>
 
-                          <CCol xs="6" md="4">
-                            <CCardBody>
-                              <CDataTable items={newArr} header={false} hover />
-                            </CCardBody>
-                          </CCol>
-
-                          <Sellers xs="6" md="4" offers={sellers} />
-                        </CRow>
-                      </CCollapse>
+                              <CCol xs="6" md="4">
+                                <CCardBody>
+                                  <CDataTable
+                                    items={newArr}
+                                    header={false}
+                                    hover
+                                  />
+                                </CCardBody>
+                              </CCol>
+                              <ExpandedRow offerUrl={item._links.offers!} />
+                            </CRow>
+                          </CCollapse>
+                        )}
+                      </>
                     );
                   },
                 }}

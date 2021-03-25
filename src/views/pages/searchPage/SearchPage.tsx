@@ -6,12 +6,7 @@ import Modal from "../../../components/modal/Modal";
 import Toaster from "../../../components/toaster/Toaster";
 import SearchPanel from "../../../components/searchPanel/SearchPanel";
 import ProductsList from "../../../components/productsList/ProductsList";
-import {
-  statsData,
-  productsData,
-  queryTrackedEANs,
-  fetchOffers,
-} from "../../../API";
+import { statsData, productsData, queryTrackedEANs } from "../../../API";
 
 type UrlProps = {
   name: string;
@@ -25,17 +20,12 @@ type UrlProps = {
 
 const SearchPage: React.FC = () => {
   const [details, setDetails] = useState<number[]>([]);
-  const [moreDetails, setMoreDetails] = useState<string>("");
 
   const toggleDetails = (index: number) => {
-    const position = details.indexOf(index);
-    let newDetails = details.slice();
-    if (position !== -1) {
-      newDetails.splice(position, 1);
-    } else {
-      newDetails = [...details, index];
+    let newDetails = [index];
+    if (details[0] === newDetails[0]) {
+      newDetails = [];
     }
-
     setDetails(newDetails);
   };
 
@@ -64,23 +54,11 @@ const SearchPage: React.FC = () => {
     isError: isError2,
     isFetching,
   } = productsQuery;
-  console.log("productsResponse", productsResponse);
   const eansQuery = useQuery("tracked eans", () =>
     queryTrackedEANs(userAuthID!)
   );
 
-  const { data: data99 } = eansQuery;
-
-  const fetchMoreQuery = useQuery(
-    "fetch more sellers",
-    () => fetchOffers(userAuthID!, moreDetails),
-    {
-      refetchOnWindowFocus: false,
-      enabled: false,
-    }
-  );
-  const { data: arrWithSellers } = fetchMoreQuery;
-  console.log("arr", arrWithSellers);
+  const { data: trackedEANsArr } = eansQuery;
 
   const composeUrl = ({
     name,
@@ -104,19 +82,8 @@ const SearchPage: React.FC = () => {
     if (queryURL) {
       productsQuery.refetch();
     }
-    if (moreDetails) {
-      fetchMoreQuery.refetch();
-    }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryURL, currentPage]);
-
-  useEffect(() => {
-    if (moreDetails) {
-      fetchMoreQuery.refetch();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [moreDetails]);
 
   return (
     <>
@@ -136,13 +103,11 @@ const SearchPage: React.FC = () => {
         <ProductsList
           productsQuery={productsQuery ? productsQuery : undefined}
           productsData={productsResponse ? productsResponse : undefined}
-          trackedEANs={data99?.data}
+          trackedEANs={trackedEANsArr?.data}
           userAuthID={userAuthID!}
           eansQuery={eansQuery}
           toggleDetails={toggleDetails}
           details={details}
-          setMoreDetails={setMoreDetails}
-          sellers={arrWithSellers ? arrWithSellers : undefined}
           setCurrentPage={setCurrentPage}
         />
       </CRow>
