@@ -1,7 +1,9 @@
 import * as yup from "yup";
 
 export const searchSchema = yup.object({
-  name: yup.string().max(25, "Max 25 chars"),
+  name: yup
+    .string()
+    .matches(/[^ ]+/, "Please write search term or leave empty"),
   results: yup
     .number()
     .required("range: 1-99999 ")
