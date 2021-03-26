@@ -29,10 +29,9 @@ const SearchPage: React.FC = () => {
     setDetails(newDetails);
   };
 
-  const { userAuthID } = useAppSelector((state) => state.user);
+  const { userAuthID, firebaseData } = useAppSelector((state) => state.user);
   const [queryURL, setQueryURL] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<number>(1);
-
   const statsQuery = useQuery('stats fetch', () => statsData(userAuthID!), {
     refetchOnWindowFocus: false,
   });
@@ -81,6 +80,8 @@ const SearchPage: React.FC = () => {
           statistics={data!}
           xs="12"
           totalRecords={productsResponse?.rows}
+          trackedEansNumber={trackedEANsArr?.data.length}
+          trackedCapacity={firebaseData?.cart.maxCartCapacity}
         />
 
         <ProductsList

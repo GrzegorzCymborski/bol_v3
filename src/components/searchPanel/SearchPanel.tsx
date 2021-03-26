@@ -45,6 +45,8 @@ type SearchPanelProps = {
   statistics: StatsProps;
   xs: string;
   totalRecords: number | undefined;
+  trackedEansNumber: number | undefined;
+  trackedCapacity: number | undefined;
 };
 
 const SearchPanel: React.FC<SearchPanelProps> = ({
@@ -55,6 +57,8 @@ const SearchPanel: React.FC<SearchPanelProps> = ({
   statistics,
   xs,
   totalRecords,
+  trackedEansNumber,
+  trackedCapacity,
 }: SearchPanelProps) => {
   return (
     <CCol xs={xs}>
@@ -215,6 +219,14 @@ const SearchPanel: React.FC<SearchPanelProps> = ({
             }}
           </Formik>
         </CCardBody>
+      </CCard>
+      <CCard>
+        <CCardHeader>
+          Tracking capacity: {formatNumber(trackedCapacity!)}
+          <span className="float-right">
+            {trackedEansNumber && `Tracked Products: ${formatNumber(trackedEansNumber)}`}
+          </span>
+        </CCardHeader>
       </CCard>
     </CCol>
   );
