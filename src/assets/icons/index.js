@@ -120,11 +120,13 @@ import {
   cilXCircle,
   cilWarning,
   cilDescription,
+  cilBarChart,
 } from '@coreui/icons';
 
 export const icons = Object.assign(
   {},
   {
+    cilBarChart,
     cilDescription,
     cilAlignCenter,
     cilAlignLeft,

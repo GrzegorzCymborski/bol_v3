@@ -78,3 +78,28 @@ export const exportCSVtoFile = async (usrID: string, queryString: string): Promi
   a.click();
   a.remove();
 };
+
+export const trackedProductsData = async (
+  usrID: string,
+  limit: number,
+  currentPage: number,
+): Promise<definitions['GetProductsResponse']> => {
+  const response = await fetch(cartURL + `?limit=${limit}` + `&page=${currentPage}`, {
+    headers: { Authorization: usrID },
+  });
+  return await response.json();
+};
+
+export const deleteEAN = async (usrID: string, ean: number): Promise<void> => {
+  const postBody = {
+    eans: [ean],
+  };
+  await fetch(cartURL, {
+    method: 'DELETE',
+    headers: {
+      Authorization: usrID,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(postBody),
+  });
+};

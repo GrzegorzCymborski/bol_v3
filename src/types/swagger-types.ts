@@ -93,6 +93,7 @@ export interface definitions {
     rows: number;
     products: definitions['products'];
     page: definitions['page'];
+    statusCode?: any;
   };
   Summary: {
     category:
