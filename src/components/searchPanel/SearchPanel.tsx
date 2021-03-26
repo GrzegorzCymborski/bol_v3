@@ -47,6 +47,8 @@ type SearchPanelProps = {
   totalRecords: number | undefined;
   trackedEansNumber: number | undefined;
   trackedCapacity: number | undefined;
+  csvExport: () => void;
+  generatingCSV: boolean;
 };
 
 const SearchPanel: React.FC<SearchPanelProps> = ({
@@ -59,6 +61,8 @@ const SearchPanel: React.FC<SearchPanelProps> = ({
   totalRecords,
   trackedEansNumber,
   trackedCapacity,
+  generatingCSV,
+  csvExport,
 }: SearchPanelProps) => {
   return (
     <CCol xs={xs}>
@@ -205,11 +209,18 @@ const SearchPanel: React.FC<SearchPanelProps> = ({
                         {isFetching ? 'Loading' : 'Search'}
                       </CButton>
 
-                      <CButton type="submit" color="primary" size="lg" className="mx-lg-2">
-                        <CIcon name="cil-scrubber" className="d-none d-xl-inline-block" /> CSV
+                      <CButton
+                        onClick={() => csvExport()}
+                        color="primary"
+                        size="lg"
+                        className="mx-lg-2"
+                        disabled={!totalRecords}
+                      >
+                        <CIcon name="cil-scrubber" className="d-none d-xl-inline-block" />{' '}
+                        {generatingCSV ? 'Busy..' : 'CSV'}
                       </CButton>
 
-                      <CButton type="submit" color="primary" size="lg" className="ml-lg-2">
+                      <CButton color="primary" size="lg" className="ml-lg-2" disabled={!totalRecords}>
                         <CIcon name="cil-scrubber" className="d-none d-xl-inline-block" /> Track
                       </CButton>
                     </CCol>

@@ -6,7 +6,7 @@ import Modal from '../../../components/modal/Modal';
 import Toaster from '../../../components/toaster/Toaster';
 import SearchPanel from '../../../components/searchPanel/SearchPanel';
 import ProductsList from '../../../components/productsList/ProductsList';
-import { statsData, productsData, queryTrackedEANs } from '../../../API';
+import { statsData, productsData, queryTrackedEANs, exportCSVtoFile } from '../../../API';
 
 type UrlProps = {
   name: string;
@@ -49,6 +49,12 @@ const SearchPage: React.FC = () => {
 
   const { data: trackedEANsArr } = eansQuery;
 
+  const csvQuery = useQuery('query csv', () => exportCSVtoFile(userAuthID!, queryURL), {
+    enabled: false,
+  });
+
+  const { isFetching: generatingCSV } = csvQuery;
+
   const composeUrl = ({ name, results, priceMin, priceMax, ratingMin, ratingMax, category }: UrlProps) => {
     const queryString = `${
       name ? `name=${encodeURIComponent(name.trim())}&` : ''
@@ -74,7 +80,7 @@ const SearchPage: React.FC = () => {
 
   return (
     <>
-      <Toaster showToast={isFetching} />
+      <Toaster showToast={isFetching || generatingCSV} />
       <Modal showModal={isError2} />
 
       <CRow>
@@ -88,6 +94,8 @@ const SearchPage: React.FC = () => {
           totalRecords={productsResponse?.rows}
           trackedEansNumber={trackedEANsArr?.data?.length}
           trackedCapacity={firebaseData?.cart.maxCartCapacity}
+          csvExport={() => csvQuery.refetch()}
+          generatingCSV={generatingCSV}
         />
 
         <ProductsList

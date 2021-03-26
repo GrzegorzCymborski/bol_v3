@@ -61,3 +61,20 @@ export const fetchOffers = async (usrID: string, offersID: string): Promise<defi
   });
   return await response.json();
 };
+
+export const exportCSVtoFile = async (usrID: string, queryString: string): Promise<void> => {
+  const response = await fetch(apiURL + queryString.replace('&limit=100', ''), {
+    method: 'POST',
+    headers: {
+      Authorization: usrID,
+    },
+  });
+  const queryRes = await response.blob();
+  const url = window.URL.createObjectURL(queryRes);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `exported_eans.txt`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+};
