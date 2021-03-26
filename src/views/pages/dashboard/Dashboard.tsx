@@ -38,7 +38,7 @@ const Dashboard: React.FC = () => {
           <CCol xs="12" sm="6" lg="4" xl="3">
             <CWidgetIcon
               text="Categories"
-              header={isLoading ? 'Loading' : isError ? '❌' : data?.categories.length.toString()}
+              header={isLoading ? 'Loading' : isError ? '❌' : data?.categories?.length.toString()}
               color={isError ? 'dark' : 'info'}
             >
               <CIcon width={24} name="cil-user" />
