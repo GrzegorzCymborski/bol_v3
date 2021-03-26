@@ -27,12 +27,7 @@ const Sellers: React.FC<SellerProps> = ({ offers, xs, md }: SellerProps) => {
         <CCardBody>
           {offers?.map(({ offer_url, seller }) => (
             <div key={offer_url}>
-              <CLink
-                className="btn"
-                href={`https://bol.com${offer_url}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <CLink className="btn" href={`https://bol.com${offer_url}`} target="_blank" rel="noopener noreferrer">
                 {seller}
               </CLink>
             </div>

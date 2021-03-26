@@ -14,6 +14,7 @@ import {
   CSelect,
   CButton,
 } from '@coreui/react';
+import { formatNumber } from '../../utils/utils';
 
 type Category = {
   category: string;
@@ -43,6 +44,7 @@ type SearchPanelProps = {
   isError: boolean;
   statistics: StatsProps;
   xs: string;
+  totalRecords: number | undefined;
 };
 
 const SearchPanel: React.FC<SearchPanelProps> = ({
@@ -52,11 +54,15 @@ const SearchPanel: React.FC<SearchPanelProps> = ({
   isError,
   statistics,
   xs,
+  totalRecords,
 }: SearchPanelProps) => {
   return (
     <CCol xs={xs}>
       <CCard>
-        <CCardHeader>Search products</CCardHeader>
+        <CCardHeader>
+          Search products
+          <span className="float-right">{totalRecords && `Total records: ${formatNumber(totalRecords)}`}</span>
+        </CCardHeader>
         <CCardBody>
           <Formik
             validationSchema={searchSchema}
@@ -78,9 +84,7 @@ const SearchPanel: React.FC<SearchPanelProps> = ({
                   <CRow>
                     <CCol xs="12" lg="12">
                       <CFormGroup>
-                        <CLabel htmlFor="name">
-                          {touched.name && errors.name ? errors.name : 'Search term'}
-                        </CLabel>
+                        <CLabel htmlFor="name">{touched.name && errors.name ? errors.name : 'Search term'}</CLabel>
                         <CInput
                           name="name"
                           value={values.name}
@@ -176,12 +180,7 @@ const SearchPanel: React.FC<SearchPanelProps> = ({
                     <CCol xs="12" lg="4">
                       <CFormGroup>
                         <CLabel htmlFor="category">Category</CLabel>
-                        <CSelect
-                          name="category"
-                          value={values.category}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        >
+                        <CSelect name="category" value={values.category} onChange={handleChange} onBlur={handleBlur}>
                           <option value={''}>{isError ? 'Error!' : 'All'}</option>
                           {!isLoading &&
                             !isError &&

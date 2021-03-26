@@ -1,15 +1,5 @@
 import CIcon from '@coreui/icons-react';
-import {
-  CButton,
-  CCard,
-  CCardBody,
-  CCol,
-  CCollapse,
-  CDataTable,
-  CImg,
-  CPagination,
-  CRow,
-} from '@coreui/react';
+import { CButton, CCard, CCardBody, CCol, CCollapse, CDataTable, CImg, CPagination, CRow } from '@coreui/react';
 import { handleTrackEAN } from '../../API';
 import { definitions } from '../../types/swagger-types';
 import ExpandedRow from '../expandedRow/ExpandedRow';
@@ -178,12 +168,7 @@ const ProductsList: React.FC<ProductsListProps> = ({
                             <CRow className="mx-0">
                               <CCol sm="2" md="4">
                                 <CCardBody>
-                                  <CImg
-                                    src={item.product_img}
-                                    fluidGrow
-                                    height="400px"
-                                    className="d-none d-md-block"
-                                  />
+                                  <CImg src={item.product_img} fluidGrow height="400px" className="d-none d-md-block" />
                                 </CCardBody>
                               </CCol>
 

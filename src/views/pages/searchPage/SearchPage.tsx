@@ -38,31 +38,19 @@ const SearchPage: React.FC = () => {
   });
   const { data, isError, isLoading } = statsQuery;
 
-  const productsQuery = useQuery(
-    'products fetch',
-    () => productsData(userAuthID!, queryURL, currentPage),
-    {
-      enabled: false,
-      refetchOnWindowFocus: false,
-      staleTime: Infinity,
-      retry: false,
-      cacheTime: 5000,
-    },
-  );
+  const productsQuery = useQuery('products fetch', () => productsData(userAuthID!, queryURL, currentPage), {
+    enabled: false,
+    refetchOnWindowFocus: false,
+    staleTime: Infinity,
+    retry: false,
+    cacheTime: 5000,
+  });
   const { data: productsResponse, isError: isError2, isFetching } = productsQuery;
   const eansQuery = useQuery('tracked eans', () => queryTrackedEANs(userAuthID!));
 
   const { data: trackedEANsArr } = eansQuery;
 
-  const composeUrl = ({
-    name,
-    results,
-    priceMin,
-    priceMax,
-    ratingMin,
-    ratingMax,
-    category,
-  }: UrlProps) => {
+  const composeUrl = ({ name, results, priceMin, priceMax, ratingMin, ratingMax, category }: UrlProps) => {
     const queryString = `${
       name ? `name=${encodeURIComponent(name.trim())}&` : ''
     }price=${priceMin}&price=${priceMax}&rate=${ratingMin}&rate=${ratingMax}${
@@ -92,6 +80,7 @@ const SearchPage: React.FC = () => {
           isError={isError}
           statistics={data!}
           xs="12"
+          totalRecords={productsResponse?.rows}
         />
 
         <ProductsList

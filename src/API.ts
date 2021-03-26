@@ -54,10 +54,7 @@ export const queryTrackedEANs = async (usrID: string): Promise<{ data: number[] 
   return await response.json();
 };
 
-export const fetchOffers = async (
-  usrID: string,
-  offersID: string,
-): Promise<definitions['GetOffersResponse']> => {
+export const fetchOffers = async (usrID: string, offersID: string): Promise<definitions['GetOffersResponse']> => {
   const response = await fetch(`${process.env.REACT_APP_BASE_URL}${offersID}`, {
     headers: { Authorization: usrID },
   });
