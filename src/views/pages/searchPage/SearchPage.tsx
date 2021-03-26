@@ -66,6 +66,12 @@ const SearchPage: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryURL, currentPage]);
 
+  const handleAllowTracking = () => {
+    if (firebaseData && trackedEANsArr) {
+      return firebaseData.cart.maxCartCapacity == trackedEANsArr?.data?.length;
+    }
+  };
+
   return (
     <>
       <Toaster showToast={isFetching} />
@@ -80,7 +86,7 @@ const SearchPage: React.FC = () => {
           statistics={data!}
           xs="12"
           totalRecords={productsResponse?.rows}
-          trackedEansNumber={trackedEANsArr?.data.length}
+          trackedEansNumber={trackedEANsArr?.data?.length}
           trackedCapacity={firebaseData?.cart.maxCartCapacity}
         />
 
@@ -93,6 +99,7 @@ const SearchPage: React.FC = () => {
           toggleDetails={toggleDetails}
           details={details}
           setCurrentPage={setCurrentPage}
+          allowTracking={handleAllowTracking()}
         />
       </CRow>
     </>

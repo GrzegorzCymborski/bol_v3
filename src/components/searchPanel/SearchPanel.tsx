@@ -224,7 +224,7 @@ const SearchPanel: React.FC<SearchPanelProps> = ({
         <CCardHeader>
           Tracking capacity: {formatNumber(trackedCapacity!)}
           <span className="float-right">
-            {trackedEansNumber && `Tracked Products: ${formatNumber(trackedEansNumber)}`}
+            {trackedEansNumber ? `Tracked Products: ${trackedEansNumber}` : `Tracked Products: 0`}
           </span>
         </CCardHeader>
       </CCard>
