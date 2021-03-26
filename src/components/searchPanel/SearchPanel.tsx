@@ -205,23 +205,19 @@ const SearchPanel: React.FC<SearchPanelProps> = ({
                   <CRow>
                     <CCol className="d-flex justify-content-between justify-content-lg-end">
                       <CButton type="submit" color="primary" size="lg" className="mx-lg-2">
-                        <CIcon name="cil-scrubber" className="d-none d-xl-inline-block" />{' '}
-                        {isFetching ? 'Loading' : 'Search'}
+                        <CIcon name="cilMagnifyingGlass" className="d-none d-xl-inline-block" />
+                        {isFetching ? ' Loading' : ' Search'}
                       </CButton>
 
                       <CButton
                         onClick={() => csvExport()}
-                        color="primary"
+                        color="info"
                         size="lg"
-                        className="mx-lg-2"
+                        className="ml-lg-2"
                         disabled={!totalRecords}
                       >
-                        <CIcon name="cil-scrubber" className="d-none d-xl-inline-block" />{' '}
-                        {generatingCSV ? 'Busy..' : 'CSV'}
-                      </CButton>
-
-                      <CButton color="primary" size="lg" className="ml-lg-2" disabled={!totalRecords}>
-                        <CIcon name="cil-scrubber" className="d-none d-xl-inline-block" /> Track
+                        <CIcon name="cilDescription" className="d-none d-xl-inline-block" />
+                        {generatingCSV ? ' Busy..' : ' CSV'}
                       </CButton>
                     </CCol>
                   </CRow>
