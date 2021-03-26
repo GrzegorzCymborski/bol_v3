@@ -25,5 +25,6 @@ jobs:
       - run: npm install -g surge
       - run: npm i
       - run: npm run build
+      - run: mv ./build/index.html ./build/200.html
       - run: surge build/ ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
     
