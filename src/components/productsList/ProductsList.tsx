@@ -163,24 +163,22 @@ const ProductsList: React.FC<ProductsListProps> = ({
                     );
                     return (
                       <>
-                        {details.includes(index) && (
-                          <CCollapse show={details.includes(index)}>
-                            <CRow className="mx-0">
-                              <CCol sm="2" md="4">
-                                <CCardBody>
-                                  <CImg src={item.product_img} fluidGrow height="400px" className="d-none d-md-block" />
-                                </CCardBody>
-                              </CCol>
+                        <CCollapse show={details.includes(index)}>
+                          <CRow className="mx-0">
+                            <CCol sm="2" md="4">
+                              <CCardBody>
+                                <CImg src={item.product_img} fluidGrow height="400px" className="d-none d-md-block" />
+                              </CCardBody>
+                            </CCol>
 
-                              <CCol xs="6" md="4">
-                                <CCardBody>
-                                  <CDataTable items={newArr} header={false} hover />
-                                </CCardBody>
-                              </CCol>
-                              <ExpandedRow offerUrl={item._links.offers!} />
-                            </CRow>
-                          </CCollapse>
-                        )}
+                            <CCol xs="6" md="4">
+                              <CCardBody>
+                                <CDataTable items={newArr} header={false} hover />
+                              </CCardBody>
+                            </CCol>
+                            {details.includes(index) && <ExpandedRow offerUrl={item._links.offers!} />}
+                          </CRow>
+                        </CCollapse>
                       </>
                     );
                   },
