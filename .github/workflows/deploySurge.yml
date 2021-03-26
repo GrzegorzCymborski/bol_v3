@@ -14,7 +14,7 @@ jobs:
           REACT_APP_BASE_URL: ${{ secrets.REACT_APP_BASE_URL }}
           REACT_APP_FIREBASE_APIKEY: ${{ secrets.REACT_APP_FIREBASE_APIKEY }}
           REACT_APP_FIREBASE_AUTHDOMAIN: ${{ secrets.REACT_APP_FIREBASE_AUTHDOMAIN }}
-          REACT_APP_FIREBASE_DATABASE_URL: = ${{ secrets.REACT_APP_FIREBASE_DATABASE_URL }}
+          REACT_APP_FIREBASE_DATABASE_URL: ${{ secrets.REACT_APP_FIREBASE_DATABASE_URL }}
           REACT_APP_FIREBASE_PROJECT_ID: ${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}
           REACT_APP_FIREBASE_STORAGEBUCKET: ${{ secrets.REACT_APP_FIREBASE_STORAGEBUCKET }}
           REACT_APP_FIREBASE_MESSAGINGSENDER_ID: ${{ secrets.REACT_APP_FIREBASE_MESSAGINGSENDER_ID }}
@@ -24,5 +24,5 @@ jobs:
           node-version: 14.x
       - run: npm install -g surge
       - run: npm i
-      - run: npm run build
+      - run: npm run ./build
       - run: surge build/ ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
