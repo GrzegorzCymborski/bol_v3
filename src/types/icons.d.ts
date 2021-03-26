@@ -1,5 +1,5 @@
-import React from "react";
+import React from 'react';
 
-declare module "react" {
+declare module 'react' {
   let icons: { [key: string]: string | Array<string> };
 }

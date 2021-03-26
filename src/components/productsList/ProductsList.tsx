@@ -1,4 +1,4 @@
-import CIcon from "@coreui/icons-react";
+import CIcon from '@coreui/icons-react';
 import {
   CButton,
   CCard,
@@ -9,10 +9,10 @@ import {
   CImg,
   CPagination,
   CRow,
-} from "@coreui/react";
-import { handleTrackEAN } from "../../API";
-import { definitions } from "../../types/swagger-types";
-import ExpandedRow from "../expandedRow/ExpandedRow";
+} from '@coreui/react';
+import { handleTrackEAN } from '../../API';
+import { definitions } from '../../types/swagger-types';
+import ExpandedRow from '../expandedRow/ExpandedRow';
 
 type ProductsDataPropsProduct = {
   name: string;
@@ -106,14 +106,14 @@ const ProductsList: React.FC<ProductsListProps> = ({
   setCurrentPage,
 }: ProductsListProps) => {
   const fields = [
-    { key: "product_img", label: "Image", _style: { width: "5%" } },
-    { key: "name", label: "Name" },
-    { key: "ean", label: "EAN", _style: { width: "10%" } },
-    { key: "subcategory", label: "Subcategory", _style: { width: "10%" } },
-    { key: "price", label: "Price", _style: { width: "5%" } },
-    { key: "rating", label: "Rating", _style: { width: "5%" } },
-    { key: "track", label: "Track", _style: { width: "5%" } },
-    { key: "show_details", label: "Info", _style: { width: "1%" } },
+    { key: 'product_img', label: 'Image', _style: { width: '5%' } },
+    { key: 'name', label: 'Name' },
+    { key: 'ean', label: 'EAN', _style: { width: '10%' } },
+    { key: 'subcategory', label: 'Subcategory', _style: { width: '10%' } },
+    { key: 'price', label: 'Price', _style: { width: '5%' } },
+    { key: 'rating', label: 'Rating', _style: { width: '5%' } },
+    { key: 'track', label: 'Track', _style: { width: '5%' } },
+    { key: 'show_details', label: 'Info', _style: { width: '1%' } },
   ];
   return (
     <>
@@ -125,12 +125,12 @@ const ProductsList: React.FC<ProductsListProps> = ({
                 items={productsData?.products}
                 fields={fields}
                 scopedSlots={{
-                  product_img: ({ product_img }: definitions["Product"]) => (
+                  product_img: ({ product_img }: definitions['Product']) => (
                     <td>
                       <CImg src={product_img} thumbnail />
                     </td>
                   ),
-                  track: ({ ean }: definitions["Product"]) => (
+                  track: ({ ean }: definitions['Product']) => (
                     <td>
                       {trackedEANs?.includes(ean) ? (
                         <CIcon name="cilCheck" />
@@ -167,11 +167,9 @@ const ProductsList: React.FC<ProductsListProps> = ({
                       </td>
                     );
                   },
-                  details: (item: definitions["Product"], index: number) => {
+                  details: (item: definitions['Product'], index: number) => {
                     const newArr = Object.entries(item).filter(
-                      (item) =>
-                        !item.includes("product_img") &&
-                        !item.includes("_links")
+                      (item) => !item.includes('product_img') && !item.includes('_links'),
                     );
                     return (
                       <>
@@ -191,11 +189,7 @@ const ProductsList: React.FC<ProductsListProps> = ({
 
                               <CCol xs="6" md="4">
                                 <CCardBody>
-                                  <CDataTable
-                                    items={newArr}
-                                    header={false}
-                                    hover
-                                  />
+                                  <CDataTable items={newArr} header={false} hover />
                                 </CCardBody>
                               </CCol>
                               <ExpandedRow offerUrl={item._links.offers!} />

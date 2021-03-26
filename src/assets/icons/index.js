@@ -1,11 +1,4 @@
-import {
-  cilSearch,
-  cilCart,
-  cilCloudUpload,
-  cilNoteAdd,
-  cilAlarm,
-  cilMemory,
-} from "@coreui/icons";
+import { cilSearch, cilCart, cilCloudUpload, cilNoteAdd, cilAlarm, cilMemory } from '@coreui/icons';
 
 import {
   cibSkype,
@@ -32,8 +25,8 @@ import {
   cibPaypal,
   cibGooglePay,
   cibCcAmex,
-} from "@coreui/icons";
-import { cifUs, cifBr, cifIn, cifFr, cifEs, cifPl } from "@coreui/icons";
+} from '@coreui/icons';
+import { cifUs, cifBr, cifIn, cifFr, cifEs, cifPl } from '@coreui/icons';
 import {
   cilAlignCenter,
   cilAlignLeft,
@@ -126,7 +119,7 @@ import {
   cilX,
   cilXCircle,
   cilWarning,
-} from "@coreui/icons";
+} from '@coreui/icons';
 
 export const icons = Object.assign(
   {},
@@ -264,5 +257,5 @@ export const icons = Object.assign(
     cilNoteAdd,
     cilAlarm,
     cilMemory,
-  }
+  },
 );

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import tryLogin from "../../../utils/auth";
-import { Formik } from "formik";
-import { loginSchema } from "../../../utils/yup/loginSchema";
-import CIcon from "@coreui/icons-react";
+import React, { useState } from 'react';
+import tryLogin from '../../../utils/auth';
+import { Formik } from 'formik';
+import { loginSchema } from '../../../utils/yup/loginSchema';
+import CIcon from '@coreui/icons-react';
 import {
   CButton,
   CCard,
@@ -20,7 +20,7 @@ import {
   CModalHeader,
   CModalBody,
   CModalFooter,
-} from "@coreui/react";
+} from '@coreui/react';
 
 type HandleSubmitProps = {
   values: {
@@ -67,22 +67,13 @@ const Login: React.FC = () => {
                   <Formik
                     validationSchema={loginSchema}
                     validateOnChange
-                    onSubmit={(values, { resetForm }) =>
-                      handleSubmit({ values, resetForm })
-                    }
+                    onSubmit={(values, { resetForm }) => handleSubmit({ values, resetForm })}
                     initialValues={{
-                      login: "",
-                      password: "",
+                      login: '',
+                      password: '',
                     }}
                   >
-                    {({
-                      handleSubmit,
-                      handleChange,
-                      handleBlur,
-                      values,
-                      touched,
-                      errors,
-                    }) => {
+                    {({ handleSubmit, handleChange, handleBlur, values, touched, errors }) => {
                       return (
                         <CForm onSubmit={handleSubmit}>
                           <h1>Login</h1>
@@ -146,17 +137,13 @@ const Login: React.FC = () => {
                   </Formik>
                 </CCardBody>
               </CCard>
-              <CCard
-                className="text-white bg-primary py-5 d-md-down-none"
-                style={{ width: "44%" }}
-              >
+              <CCard className="text-white bg-primary py-5 d-md-down-none" style={{ width: '44%' }}>
                 <CCardBody className="text-center">
                   <div>
                     <h2>Sign up</h2>
                     <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua.
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                      tempor incididunt ut labore et dolore magna aliqua.
                     </p>
                   </div>
                 </CCardBody>

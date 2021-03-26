@@ -1,16 +1,16 @@
-import React, { lazy, Suspense } from "react";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-import { useEffect } from "react";
-import { auth, firestore } from "./firebase/firebase";
-import { useAppSelector, useAppDispatch } from "./hooks/reduxHooks";
-import { login, logout } from "./redux/user";
-import Spinner from "./components/spinner/Spinner";
+import React, { lazy, Suspense } from 'react';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { useEffect } from 'react';
+import { auth, firestore } from './firebase/firebase';
+import { useAppSelector, useAppDispatch } from './hooks/reduxHooks';
+import { login, logout } from './redux/user';
+import Spinner from './components/spinner/Spinner';
 
-const Login = lazy(() => import("./views/pages/login/Login"));
-const Layout = lazy(() => import("./containers/Layout"));
+const Login = lazy(() => import('./views/pages/login/Login'));
+const Layout = lazy(() => import('./containers/Layout'));
 
 const App: React.FC = () => {
-  const userDatabase = firestore.collection("users");
+  const userDatabase = firestore.collection('users');
   const dispatch = useAppDispatch();
   const { userLoged } = useAppSelector((state) => state.user);
 
@@ -31,7 +31,7 @@ const App: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log("app.tsx - isUserLoged", userLoged);
+  console.log('app.tsx - isUserLoged', userLoged);
 
   return (
     <BrowserRouter>

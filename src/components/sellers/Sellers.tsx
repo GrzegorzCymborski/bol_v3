@@ -1,4 +1,4 @@
-import { CCol, CCardBody, CCardHeader, CLink } from "@coreui/react";
+import { CCol, CCardBody, CCardHeader, CLink } from '@coreui/react';
 
 type Links = {
   self: string;

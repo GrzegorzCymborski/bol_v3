@@ -1,6 +1,6 @@
-import React from "react";
-import { useAppSelector, useAppDispatch } from "../hooks/reduxHooks";
-import { changeState } from "../redux/sidebar";
+import React from 'react';
+import { useAppSelector, useAppDispatch } from '../hooks/reduxHooks';
+import { changeState } from '../redux/sidebar';
 import {
   CCreateElement,
   CSidebar,
@@ -10,9 +10,9 @@ import {
   CSidebarMinimizer,
   CSidebarNavDropdown,
   CSidebarNavItem,
-} from "@coreui/react";
+} from '@coreui/react';
 
-import navigation from "./_nav";
+import navigation from './_nav';
 
 const Sidebar: React.FC = () => {
   const dispatch = useAppDispatch();

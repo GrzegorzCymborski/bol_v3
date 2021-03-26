@@ -1,8 +1,8 @@
-import React, { Suspense } from "react";
-import { Route, Switch } from "react-router-dom";
-import { CContainer, CFade } from "@coreui/react";
+import React, { Suspense } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { CContainer, CFade } from '@coreui/react';
 
-import routes from "../routes";
+import routes from '../routes';
 
 const loading = (
   <div className="pt-3 text-center">

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 type Cart = {
   maxCartCapacity: number;
@@ -61,7 +61,7 @@ const initialState: UserState = {
 };
 
 export const counterSlice = createSlice({
-  name: "userAuth",
+  name: 'userAuth',
   initialState,
   reducers: {
     login: (state, action) => {

@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useQuery } from "react-query";
-import { useAppSelector } from "../../../hooks/reduxHooks";
-import { CRow } from "@coreui/react";
-import Modal from "../../../components/modal/Modal";
-import Toaster from "../../../components/toaster/Toaster";
-import SearchPanel from "../../../components/searchPanel/SearchPanel";
-import ProductsList from "../../../components/productsList/ProductsList";
-import { statsData, productsData, queryTrackedEANs } from "../../../API";
+import React, { useState, useEffect } from 'react';
+import { useQuery } from 'react-query';
+import { useAppSelector } from '../../../hooks/reduxHooks';
+import { CRow } from '@coreui/react';
+import Modal from '../../../components/modal/Modal';
+import Toaster from '../../../components/toaster/Toaster';
+import SearchPanel from '../../../components/searchPanel/SearchPanel';
+import ProductsList from '../../../components/productsList/ProductsList';
+import { statsData, productsData, queryTrackedEANs } from '../../../API';
 
 type UrlProps = {
   name: string;
@@ -30,16 +30,16 @@ const SearchPage: React.FC = () => {
   };
 
   const { userAuthID } = useAppSelector((state) => state.user);
-  const [queryURL, setQueryURL] = useState<string>("");
+  const [queryURL, setQueryURL] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const statsQuery = useQuery("stats fetch", () => statsData(userAuthID!), {
+  const statsQuery = useQuery('stats fetch', () => statsData(userAuthID!), {
     refetchOnWindowFocus: false,
   });
   const { data, isError, isLoading } = statsQuery;
 
   const productsQuery = useQuery(
-    "products fetch",
+    'products fetch',
     () => productsData(userAuthID!, queryURL, currentPage),
     {
       enabled: false,
@@ -47,16 +47,10 @@ const SearchPage: React.FC = () => {
       staleTime: Infinity,
       retry: false,
       cacheTime: 5000,
-    }
+    },
   );
-  const {
-    data: productsResponse,
-    isError: isError2,
-    isFetching,
-  } = productsQuery;
-  const eansQuery = useQuery("tracked eans", () =>
-    queryTrackedEANs(userAuthID!)
-  );
+  const { data: productsResponse, isError: isError2, isFetching } = productsQuery;
+  const eansQuery = useQuery('tracked eans', () => queryTrackedEANs(userAuthID!));
 
   const { data: trackedEANsArr } = eansQuery;
 
@@ -70,9 +64,9 @@ const SearchPage: React.FC = () => {
     category,
   }: UrlProps) => {
     const queryString = `${
-      name ? `name=${encodeURIComponent(name.trim())}&` : ""
+      name ? `name=${encodeURIComponent(name.trim())}&` : ''
     }price=${priceMin}&price=${priceMax}&rate=${ratingMin}&rate=${ratingMax}${
-      category ? `&category=${category}` : ""
+      category ? `&category=${category}` : ''
     }&records=${results}&limit=100`;
 
     setQueryURL(queryString);

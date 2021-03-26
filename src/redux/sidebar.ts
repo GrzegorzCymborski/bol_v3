@@ -1,15 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 type SidebarState = {
-  sidebarShow: boolean | "" | "responsive" | undefined;
+  sidebarShow: boolean | '' | 'responsive' | undefined;
 };
 
 const initialState: SidebarState = {
-  sidebarShow: "responsive",
+  sidebarShow: 'responsive',
 };
 
 export const counterSlice = createSlice({
-  name: "sidebar",
+  name: 'sidebar',
   initialState,
   reducers: {
     changeState: (state, action) => {

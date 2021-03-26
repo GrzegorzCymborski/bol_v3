@@ -1,4 +1,4 @@
-import { CSpinner, CToast, CToastBody, CToaster } from "@coreui/react";
+import { CSpinner, CToast, CToastBody, CToaster } from '@coreui/react';
 
 type ToasterProps = {
   showToast: boolean;
@@ -6,7 +6,7 @@ type ToasterProps = {
 
 const Toaster: React.FC<ToasterProps> = ({ showToast }: ToasterProps) => {
   return (
-    <CToaster position="bottom-right" style={{ width: "70px" }}>
+    <CToaster position="bottom-right" style={{ width: '70px' }}>
       <CToast show={showToast} fade>
         <CToastBody>
           <CSpinner color="primary" />

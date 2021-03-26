@@ -1,7 +1,7 @@
-import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "./user";
-import sidebarReducer from "./sidebar";
-import { getDefaultMiddleware } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit';
+import userReducer from './user';
+import sidebarReducer from './sidebar';
+import { getDefaultMiddleware } from '@reduxjs/toolkit';
 
 const store = configureStore({
   reducer: {

@@ -4,35 +4,35 @@
  */
 
 export interface paths {
-  "/carts": {
-    get: operations["getCarts"];
-    post: operations["postCarts"];
-    delete: operations["deleteCarts"];
+  '/carts': {
+    get: operations['getCarts'];
+    post: operations['postCarts'];
+    delete: operations['deleteCarts'];
   };
-  "/products": {
-    get: operations["getProducts"];
-    post: operations["postProducts"];
+  '/products': {
+    get: operations['getProducts'];
+    post: operations['postProducts'];
   };
-  "/statistics": {
-    get: operations["getStatistics"];
+  '/statistics': {
+    get: operations['getStatistics'];
   };
-  "/carts/raw": {
-    get: operations["getCartsRaw"];
+  '/carts/raw': {
+    get: operations['getCartsRaw'];
   };
-  "/products/{product_id}": {
-    get: operations["getProductsProduct_id"];
+  '/products/{product_id}': {
+    get: operations['getProductsProduct_id'];
   };
-  "/products/{product_id}/offers": {
-    get: operations["getProductsProduct_idOffers"];
+  '/products/{product_id}/offers': {
+    get: operations['getProductsProduct_idOffers'];
   };
-  "/products/{product_id}/offers/{offer_id}": {
-    get: operations["getProductsProduct_idOffersOffer_id"];
+  '/products/{product_id}/offers/{offer_id}': {
+    get: operations['getProductsProduct_idOffersOffer_id'];
   };
-  "/products/{product_id}/offers/{offer_id}/carts": {
-    get: operations["getProductsProduct_idOffersOffer_idCarts"];
+  '/products/{product_id}/offers/{offer_id}/carts': {
+    get: operations['getProductsProduct_idOffersOffer_idCarts'];
   };
-  "/products/{product_id}/offers/{offer_id}/economies": {
-    get: operations["getProductsProduct_idOffersOffer_idEconomies"];
+  '/products/{product_id}/offers/{offer_id}/economies': {
+    get: operations['getProductsProduct_idOffersOffer_idEconomies'];
   };
 }
 
@@ -49,94 +49,94 @@ export interface definitions {
     dimensions: string;
     weight: string;
     category?:
-      | "Auto & Motor"
-      | "Baby"
-      | "Beauty"
-      | "Boeken"
-      | "Cadeaukaarten"
-      | "Computer"
-      | "Damesmode"
-      | "Dieren"
-      | "Dranken & Delicatessen"
-      | "Elektronica"
-      | "Erotiek"
-      | "Fietsen & Accessoires"
-      | "Films & Series"
-      | "Games"
-      | "Gezondheid"
-      | "Herenmode"
-      | "Huishouden"
-      | "Kamperen & Outdoor"
-      | "Kantoor & School"
-      | "Kerst"
-      | "Kindermode"
-      | "Klussen"
-      | "Koken & Tafelen"
-      | "Muziek"
-      | "Persoonlijke verzorging"
-      | "Reisbagage & Reisaccessoires"
-      | "Speelgoed"
-      | "Sport"
-      | "Tuin"
-      | "Wonen";
+      | 'Auto & Motor'
+      | 'Baby'
+      | 'Beauty'
+      | 'Boeken'
+      | 'Cadeaukaarten'
+      | 'Computer'
+      | 'Damesmode'
+      | 'Dieren'
+      | 'Dranken & Delicatessen'
+      | 'Elektronica'
+      | 'Erotiek'
+      | 'Fietsen & Accessoires'
+      | 'Films & Series'
+      | 'Games'
+      | 'Gezondheid'
+      | 'Herenmode'
+      | 'Huishouden'
+      | 'Kamperen & Outdoor'
+      | 'Kantoor & School'
+      | 'Kerst'
+      | 'Kindermode'
+      | 'Klussen'
+      | 'Koken & Tafelen'
+      | 'Muziek'
+      | 'Persoonlijke verzorging'
+      | 'Reisbagage & Reisaccessoires'
+      | 'Speelgoed'
+      | 'Sport'
+      | 'Tuin'
+      | 'Wonen';
     subcategory: string;
     price: number;
     rating: number;
-    _links: definitions["_links"];
+    _links: definitions['_links'];
   };
-  products: definitions["Product"][];
+  products: definitions['Product'][];
   page: {
     current: number;
     pages: number;
   };
   GetProductsResponse: {
     rows: number;
-    products: definitions["products"];
-    page: definitions["page"];
+    products: definitions['products'];
+    page: definitions['page'];
   };
   Summary: {
     category:
-      | "Auto & Motor"
-      | "Baby"
-      | "Beauty"
-      | "Boeken"
-      | "Cadeaukaarten"
-      | "Computer"
-      | "Damesmode"
-      | "Dieren"
-      | "Dranken & Delicatessen"
-      | "Elektronica"
-      | "Erotiek"
-      | "Fietsen & Accessoires"
-      | "Films & Series"
-      | "Games"
-      | "Gezondheid"
-      | "Herenmode"
-      | "Huishouden"
-      | "Kamperen & Outdoor"
-      | "Kantoor & School"
-      | "Kerst"
-      | "Kindermode"
-      | "Klussen"
-      | "Koken & Tafelen"
-      | "Muziek"
-      | "Persoonlijke verzorging"
-      | "Reisbagage & Reisaccessoires"
-      | "Speelgoed"
-      | "Sport"
-      | "Tuin"
-      | "Wonen";
+      | 'Auto & Motor'
+      | 'Baby'
+      | 'Beauty'
+      | 'Boeken'
+      | 'Cadeaukaarten'
+      | 'Computer'
+      | 'Damesmode'
+      | 'Dieren'
+      | 'Dranken & Delicatessen'
+      | 'Elektronica'
+      | 'Erotiek'
+      | 'Fietsen & Accessoires'
+      | 'Films & Series'
+      | 'Games'
+      | 'Gezondheid'
+      | 'Herenmode'
+      | 'Huishouden'
+      | 'Kamperen & Outdoor'
+      | 'Kantoor & School'
+      | 'Kerst'
+      | 'Kindermode'
+      | 'Klussen'
+      | 'Koken & Tafelen'
+      | 'Muziek'
+      | 'Persoonlijke verzorging'
+      | 'Reisbagage & Reisaccessoires'
+      | 'Speelgoed'
+      | 'Sport'
+      | 'Tuin'
+      | 'Wonen';
     rows: number;
   };
-  categories: definitions["Summary"][];
+  categories: definitions['Summary'][];
   StatisticsResponse: {
     lastUpdate: string;
     totalRows: number;
-    categories: definitions["categories"];
+    categories: definitions['categories'];
   };
   data: number[];
   GetProductsEansResponse: {
-    data: definitions["data"];
+    data: definitions['data'];
   };
   Model1: {
     self?: string;
@@ -147,31 +147,31 @@ export interface definitions {
     offer_url: string;
     seller: string;
     portal: string;
-    _links: definitions["Model1"];
+    _links: definitions['Model1'];
   };
-  GetOffersResponse: definitions["Offer"][];
+  GetOffersResponse: definitions['Offer'][];
   Sales: {
     amount?: number;
     updated_at?: string;
   };
-  sales: definitions["Sales"][];
+  sales: definitions['Sales'][];
   GetSalesResponse: {
-    sales?: definitions["sales"];
-    page?: definitions["page"];
+    sales?: definitions['sales'];
+    page?: definitions['page'];
   };
   PriceHistory: {
     price: number;
     rating: number;
     updated_at: string;
   };
-  economies: definitions["PriceHistory"][];
+  economies: definitions['PriceHistory'][];
   GetPriceHistoryResponse: {
-    economies?: definitions["economies"];
-    page?: definitions["page"];
+    economies?: definitions['economies'];
+    page?: definitions['page'];
   };
   eans: number[];
   Eans: {
-    eans: definitions["eans"];
+    eans: definitions['eans'];
   };
 }
 
@@ -189,7 +189,7 @@ export interface operations {
     responses: {
       /** OK */
       200: {
-        schema: definitions["GetProductsResponse"];
+        schema: definitions['GetProductsResponse'];
       };
       /** No Content */
       204: never;
@@ -207,7 +207,7 @@ export interface operations {
         authorization: unknown;
       };
       body: {
-        body?: definitions["Eans"];
+        body?: definitions['Eans'];
       };
     };
     responses: {
@@ -227,7 +227,7 @@ export interface operations {
         authorization: unknown;
       };
       body: {
-        body?: definitions["Eans"];
+        body?: definitions['Eans'];
       };
     };
     responses: {
@@ -261,7 +261,7 @@ export interface operations {
     responses: {
       /** OK */
       200: {
-        schema: definitions["GetProductsResponse"];
+        schema: definitions['GetProductsResponse'];
       };
       /** No Content */
       204: never;
@@ -306,7 +306,7 @@ export interface operations {
     responses: {
       /** OK */
       200: {
-        schema: definitions["StatisticsResponse"];
+        schema: definitions['StatisticsResponse'];
       };
       /** Unauthorized */
       401: unknown;
@@ -321,7 +321,7 @@ export interface operations {
     responses: {
       /** OK */
       200: {
-        schema: definitions["GetProductsResponse"];
+        schema: definitions['GetProductsResponse'];
       };
       /** Unauthorized */
       401: unknown;
@@ -341,7 +341,7 @@ export interface operations {
     responses: {
       /** OK */
       200: {
-        schema: definitions["Product"];
+        schema: definitions['Product'];
       };
       /** Bad Request */
       400: unknown;
@@ -363,7 +363,7 @@ export interface operations {
     responses: {
       /** OK */
       200: {
-        schema: definitions["GetOffersResponse"];
+        schema: definitions['GetOffersResponse'];
       };
       /** Unauthorized */
       401: unknown;
@@ -384,7 +384,7 @@ export interface operations {
     responses: {
       /** OK */
       200: {
-        schema: definitions["Offer"];
+        schema: definitions['Offer'];
       };
       /** Bad Request */
       400: unknown;
@@ -411,7 +411,7 @@ export interface operations {
     responses: {
       /** OK */
       200: {
-        schema: definitions["GetSalesResponse"];
+        schema: definitions['GetSalesResponse'];
       };
       /** No Content */
       204: never;
@@ -442,7 +442,7 @@ export interface operations {
     responses: {
       /** OK */
       200: {
-        schema: definitions["GetPriceHistoryResponse"];
+        schema: definitions['GetPriceHistoryResponse'];
       };
       /** No Content */
       204: never;

@@ -1,6 +1,6 @@
-import CIcon from "@coreui/icons-react";
-import { Formik } from "formik";
-import { searchSchema } from "../../utils/yup/searchSchema";
+import CIcon from '@coreui/icons-react';
+import { Formik } from 'formik';
+import { searchSchema } from '../../utils/yup/searchSchema';
 import {
   CCol,
   CCard,
@@ -13,7 +13,7 @@ import {
   CInput,
   CSelect,
   CButton,
-} from "@coreui/react";
+} from '@coreui/react';
 
 type Category = {
   category: string;
@@ -63,7 +63,7 @@ const SearchPanel: React.FC<SearchPanelProps> = ({
             validateOnChange
             onSubmit={(values) => compURL(values)}
             initialValues={{
-              name: "",
+              name: '',
               results: 100,
               priceMin: 0,
               priceMax: 1000,
@@ -72,23 +72,14 @@ const SearchPanel: React.FC<SearchPanelProps> = ({
               category: 0,
             }}
           >
-            {({
-              handleSubmit,
-              handleChange,
-              handleBlur,
-              values,
-              touched,
-              errors,
-            }) => {
+            {({ handleSubmit, handleChange, handleBlur, values, touched, errors }) => {
               return (
                 <CForm onSubmit={handleSubmit}>
                   <CRow>
                     <CCol xs="12" lg="12">
                       <CFormGroup>
                         <CLabel htmlFor="name">
-                          {touched.name && errors.name
-                            ? errors.name
-                            : "Search term"}
+                          {touched.name && errors.name ? errors.name : 'Search term'}
                         </CLabel>
                         <CInput
                           name="name"
@@ -101,17 +92,11 @@ const SearchPanel: React.FC<SearchPanelProps> = ({
                       </CFormGroup>
                     </CCol>
 
-                    <CCol
-                      className="d-lg-flex justify-content-xl-between"
-                      xs="12"
-                      xl="8"
-                    >
+                    <CCol className="d-lg-flex justify-content-xl-between" xs="12" xl="8">
                       <CCol xs="12" lg="2" className="px-xl-0">
                         <CFormGroup>
                           <CLabel htmlFor="results">
-                            {touched.results && errors.results
-                              ? errors.results
-                              : "Results"}
+                            {touched.results && errors.results ? errors.results : 'Results'}
                           </CLabel>
                           <CInput
                             name="results"
@@ -127,9 +112,7 @@ const SearchPanel: React.FC<SearchPanelProps> = ({
                       <CCol xs="12" lg="2" className="px-xl-0">
                         <CFormGroup>
                           <CLabel htmlFor="priceMin">
-                            {touched.priceMin && errors.priceMin
-                              ? errors.priceMin
-                              : "Price min"}
+                            {touched.priceMin && errors.priceMin ? errors.priceMin : 'Price min'}
                           </CLabel>
                           <CInput
                             name="priceMin"
@@ -145,9 +128,7 @@ const SearchPanel: React.FC<SearchPanelProps> = ({
                       <CCol xs="12" lg="2" className="px-xl-0">
                         <CFormGroup>
                           <CLabel htmlFor="priceMax">
-                            {touched.priceMax && errors.priceMax
-                              ? errors.priceMax
-                              : "Price max"}
+                            {touched.priceMax && errors.priceMax ? errors.priceMax : 'Price max'}
                           </CLabel>
                           <CInput
                             name="priceMax"
@@ -163,9 +144,7 @@ const SearchPanel: React.FC<SearchPanelProps> = ({
                       <CCol xs="12" lg="2" className="px-xl-0">
                         <CFormGroup>
                           <CLabel htmlFor="ratingMin">
-                            {touched.ratingMin && errors.ratingMin
-                              ? errors.ratingMin
-                              : "Rating min"}
+                            {touched.ratingMin && errors.ratingMin ? errors.ratingMin : 'Rating min'}
                           </CLabel>
                           <CInput
                             name="ratingMin"
@@ -181,9 +160,7 @@ const SearchPanel: React.FC<SearchPanelProps> = ({
                       <CCol xs="12" lg="2" className="px-xl-0">
                         <CFormGroup>
                           <CLabel htmlFor="ratingMax">
-                            {touched.ratingMax && errors.ratingMax
-                              ? errors.ratingMax
-                              : "Rating max"}
+                            {touched.ratingMax && errors.ratingMax ? errors.ratingMax : 'Rating max'}
                           </CLabel>
                           <CInput
                             name="ratingMax"
@@ -205,16 +182,11 @@ const SearchPanel: React.FC<SearchPanelProps> = ({
                           onChange={handleChange}
                           onBlur={handleBlur}
                         >
-                          <option value={""}>
-                            {isError ? "Error!" : "All"}
-                          </option>
+                          <option value={''}>{isError ? 'Error!' : 'All'}</option>
                           {!isLoading &&
                             !isError &&
                             statistics?.categories.map((cat) => (
-                              <option
-                                key={cat.category}
-                                value={cat.category.replace(/&/, "%26")}
-                              >
+                              <option key={cat.category} value={cat.category.replace(/&/, '%26')}>
                                 {cat.category}
                               </option>
                             ))}
@@ -225,43 +197,17 @@ const SearchPanel: React.FC<SearchPanelProps> = ({
 
                   <CRow>
                     <CCol className="d-flex justify-content-between justify-content-lg-end">
-                      <CButton
-                        type="submit"
-                        color="primary"
-                        size="lg"
-                        className="mx-lg-2"
-                      >
-                        <CIcon
-                          name="cil-scrubber"
-                          className="d-none d-xl-inline-block"
-                        />{" "}
-                        {isFetching ? "Loading" : "Search"}
+                      <CButton type="submit" color="primary" size="lg" className="mx-lg-2">
+                        <CIcon name="cil-scrubber" className="d-none d-xl-inline-block" />{' '}
+                        {isFetching ? 'Loading' : 'Search'}
                       </CButton>
 
-                      <CButton
-                        type="submit"
-                        color="primary"
-                        size="lg"
-                        className="mx-lg-2"
-                      >
-                        <CIcon
-                          name="cil-scrubber"
-                          className="d-none d-xl-inline-block"
-                        />{" "}
-                        CSV
+                      <CButton type="submit" color="primary" size="lg" className="mx-lg-2">
+                        <CIcon name="cil-scrubber" className="d-none d-xl-inline-block" /> CSV
                       </CButton>
 
-                      <CButton
-                        type="submit"
-                        color="primary"
-                        size="lg"
-                        className="ml-lg-2"
-                      >
-                        <CIcon
-                          name="cil-scrubber"
-                          className="d-none d-xl-inline-block"
-                        />{" "}
-                        Track
+                      <CButton type="submit" color="primary" size="lg" className="ml-lg-2">
+                        <CIcon name="cil-scrubber" className="d-none d-xl-inline-block" /> Track
                       </CButton>
                     </CCol>
                   </CRow>

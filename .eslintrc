@@ -10,7 +10,6 @@
     "prettier"
   ],
   "plugins": ["react-app", "@typescript-eslint"],
-
   "env": {
     "es6": true,
     "browser": true,
@@ -35,13 +34,7 @@
     "@typescript-eslint/no-non-null-assertion": 0,
     "no-undef": 0,
     "jsx-a11y/label-has-for": 0,
-    "jsx-a11y/no-noninteractive-tabindex": 0,
-    "prettier/prettier": [
-      "error",
-      {
-        "endOfLine": "auto"
-      }
-    ]
+    "jsx-a11y/no-noninteractive-tabindex": 0
   },
   "parserOptions": {
     "ecmaVersion": 12,
