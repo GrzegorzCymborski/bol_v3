@@ -36,7 +36,8 @@ export const handleTrackEAN = async (usrID: string, eanNo: number): Promise<void
     body: JSON.stringify(postBody),
   });
   if (response.status === 422) {
-    console.log('already tracking', response.status);
+    const resp = await response.json();
+    console.log(resp);
     return;
   }
   if (response.status === 201) {
