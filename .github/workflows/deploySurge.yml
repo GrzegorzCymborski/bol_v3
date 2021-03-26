@@ -1,16 +1,7 @@
 name: Deploy to surge bol-v3.surge.sh
 
 on: [push]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    name: Deploying to surge
-    steps:
-      - uses: actions/checkout@v1
-      - name: Install surge and fire deployment
-        uses: actions/setup-node@v1
-        env:
+env:
           REACT_APP_BASE_URL: ${{ secrets.REACT_APP_BASE_URL }}
           REACT_APP_FIREBASE_APIKEY: ${{ secrets.REACT_APP_FIREBASE_APIKEY }}
           REACT_APP_FIREBASE_AUTHDOMAIN: ${{ secrets.REACT_APP_FIREBASE_AUTHDOMAIN }}
@@ -20,9 +11,21 @@ jobs:
           REACT_APP_FIREBASE_MESSAGINGSENDER_ID: ${{ secrets.REACT_APP_FIREBASE_MESSAGINGSENDER_ID }}
           REACT_APP_FIREBASE_APP_ID: ${{ secrets.REACT_APP_FIREBASE_APP_ID }}
           REACT_APP_FIREBASE_MEASUREMENT_ID: ${{ secrets.REACT_APP_FIREBASE_MEASUREMENT_ID }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Deploying to surge
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install surge and fire deployment
+        uses: actions/setup-node@v1
         with:
           node-version: 14.x
       - run: npm install -g surge
       - run: npm i
+      - run: |
+             export $REACT_APP_BASE_URL
       - run: npm run build
       - run: surge build/ ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
+    
