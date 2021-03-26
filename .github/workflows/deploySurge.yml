@@ -13,5 +13,6 @@ jobs:
         with:
           node-version: 14.x
       - run: npm install -g surge
+      - run: npm i
       - run: npm run build
       - run: surge ./build ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
