@@ -15,7 +15,7 @@ const SearchPage = React.lazy(() =>
 );
 
 const routes = [
-  { path: "/", exact: true },
+  { path: "/", exact: true, component: Dashboard },
   { path: "/dashboard/search", component: SearchPage },
   { path: "/dashboard/tracked", component: TrackedPage },
   { path: "/dashboard", exact: true, component: Dashboard },
