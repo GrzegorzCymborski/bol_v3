@@ -46,7 +46,6 @@ const SearchPage: React.FC = () => {
   });
   const { data: productsResponse, isError: isError2, isFetching } = productsQuery;
   const eansQuery = useQuery('tracked eans', () => queryTrackedEANs(userAuthID!));
-
   const { data: trackedEANsArr } = eansQuery;
 
   const csvQuery = useQuery('query csv', () => exportCSVtoFile(userAuthID!, queryURL), {
@@ -81,7 +80,7 @@ const SearchPage: React.FC = () => {
   return (
     <>
       <Toaster showToast={isFetching || generatingCSV} />
-      <Modal showModal={isError2} />
+      <Modal showModal={isError2 || !!productsResponse?.statusCode} />
 
       <CRow>
         <SearchPanel
@@ -100,7 +99,7 @@ const SearchPage: React.FC = () => {
 
         <ProductsList
           productsQuery={productsQuery ? productsQuery : undefined}
-          productsData={productsResponse ? productsResponse : undefined}
+          productsData={!productsResponse?.statusCode ? productsResponse : undefined}
           trackedEANs={trackedEANsArr?.data}
           userAuthID={userAuthID!}
           eansQuery={eansQuery}
