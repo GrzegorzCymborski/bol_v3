@@ -13,7 +13,6 @@ import useCSVquery from '../../../hooks/useCSVquery';
 
 const SearchPage = () => {
   const [details, setDetails] = useState<number[]>([]);
-  let queryString = '';
   const toggleDetails = (index: number) => {
     let newDetails = [index];
     if (details[0] === newDetails[0]) {
@@ -32,7 +31,7 @@ const SearchPage = () => {
   const { generatingCSV, refetchCSV } = useCSVquery(queryCSVurl);
 
   const composeUrl = ({ name, results, priceMin, priceMax, ratingMin, ratingMax, category }: UrlProps) => {
-    queryString = `${
+    const queryString = `${
       name ? `name=${encodeURIComponent(name.trim())}&` : ''
     }price=${priceMin}&price=${priceMax}&rate=${ratingMin}&rate=${ratingMax}${
       category ? `&category=${category}` : ''
