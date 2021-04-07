@@ -3,8 +3,8 @@ import { Offers } from '../../types';
 
 type SellerProps = {
   offers: Offers[] | undefined;
-  xs: string;
-  md: string;
+  xs?: string;
+  md?: string;
 };
 
 const Sellers = ({ offers, xs, md }: SellerProps) => {
