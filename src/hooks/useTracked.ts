@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 import { definitions } from '../types/swagger-types';
-import { fetcher } from '../utils/fetcher';
+import { fetcher } from '../API/fetcher/fetcher';
 import { useAppSelector } from './reduxHooks';
 
 const useTracked = () => {

@@ -1,6 +1,6 @@
 import CIcon from '@coreui/icons-react';
 import { CButton, CCard, CCardBody, CCol, CCollapse, CDataTable, CImg, CPagination, CRow } from '@coreui/react';
-import { handleTrackEAN } from '../../API';
+import { handleTrackEAN } from '../../API/API';
 import { definitions } from '../../types/swagger-types';
 import { productListFields } from '../../utils/tableFields';
 import ExpandedRow from '../expandedRow/ExpandedRow';

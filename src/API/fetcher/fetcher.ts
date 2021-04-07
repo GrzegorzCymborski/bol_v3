@@ -3,7 +3,7 @@ import { ResponseError } from './responseError';
 import { compileURL } from './compileURL';
 import { getJSON } from './getJSON';
 
-import type { paths as Paths } from '../types/swagger-types';
+import type { paths as Paths } from '../../types/swagger-types';
 
 type MethodType<CurrentPath extends keyof Paths> = keyof Paths[CurrentPath];
 

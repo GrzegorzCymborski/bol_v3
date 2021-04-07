@@ -1,6 +1,6 @@
 import { CButton, CCard, CCardBody, CCardHeader, CCol, CDataTable, CImg, CRow } from '@coreui/react';
 import { definitions } from '../../../types/swagger-types';
-import { deleteEAN } from '../../../API';
+import { deleteEAN } from '../../../API/API';
 import CIcon from '@coreui/icons-react';
 import { trackedPageFields } from '../../../utils/tableFields';
 import useTracked from '../../../hooks/useTracked';

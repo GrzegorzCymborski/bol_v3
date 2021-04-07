@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import tryLogin from '../../../utils/auth';
+import tryLogin from '../../../API/auth';
 import { Formik } from 'formik';
 import { loginSchema } from '../../../utils/yup/loginSchema';
 import CIcon from '@coreui/icons-react';

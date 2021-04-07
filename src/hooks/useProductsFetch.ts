@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 import { UrlProps } from '../types';
-import { fetcher } from '../utils/fetcher';
+import { fetcher } from '../API/fetcher/fetcher';
 import { useAppSelector } from './reduxHooks';
 
 const useProductsFetch = (queryURL: UrlProps, currentPage: number) => {

@@ -1,4 +1,4 @@
-import type { paths as Paths } from '../types/swagger-types';
+import type { paths as Paths } from '../../types/swagger-types';
 import qs from 'querystring';
 
 const PARAMS_PATTERN = /{(\w+)}/g;
