@@ -4,14 +4,15 @@ import { useQuery } from 'react-query';
 import { formatNumber, updateTime } from '../../../utils/utils';
 import { CCard, CCardBody, CCol, CDataTable, CRow, CWidgetIcon } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
-import { statsData } from '../../../API';
 import { definitions } from '../../../types/swagger-types';
+import { fetcher } from '../../../utils/fetcher';
 
 const Dashboard: React.FC = () => {
   const { userAuthID } = useAppSelector((state) => state.user);
+
   const { data, isLoading, isError } = useQuery<definitions['StatisticsResponse']>(
     'stats fetch',
-    () => statsData(userAuthID!),
+    () => fetcher('/statistics', 'get', { authorization: userAuthID! }),
     {
       refetchOnWindowFocus: false,
     },

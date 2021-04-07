@@ -1,17 +1,5 @@
 import { CCol, CCardBody, CCardHeader, CLink } from '@coreui/react';
-
-type Links = {
-  self: string;
-  carts: string;
-  economies: string;
-};
-
-type Offers = {
-  offer_url: string;
-  seller: string;
-  portal: string;
-  _links: Partial<Links>;
-};
+import { Offers } from '../../types';
 
 type SellerProps = {
   offers: Offers[] | undefined;
@@ -19,7 +7,7 @@ type SellerProps = {
   md: string;
 };
 
-const Sellers: React.FC<SellerProps> = ({ offers, xs, md }: SellerProps) => {
+const Sellers = ({ offers, xs, md }: SellerProps) => {
   return (
     <CCol xs={xs} md={md}>
       <CCardBody>

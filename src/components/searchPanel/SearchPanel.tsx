@@ -34,7 +34,7 @@ type ValuesProps = {
   priceMax: number;
   ratingMin: number;
   ratingMax: number;
-  category: number;
+  category: string;
 };
 
 type SearchPanelProps = {
@@ -83,7 +83,7 @@ const SearchPanel: React.FC<SearchPanelProps> = ({
               priceMax: 1000,
               ratingMin: 0,
               ratingMax: 5,
-              category: 0,
+              category: '',
             }}
           >
             {({ handleSubmit, handleChange, handleBlur, values, touched, errors }) => {
@@ -193,7 +193,7 @@ const SearchPanel: React.FC<SearchPanelProps> = ({
                           {!isLoading &&
                             !isError &&
                             statistics?.categories?.map((cat) => (
-                              <option key={cat.category} value={cat.category.replace(/&/, '%26')}>
+                              <option key={cat.category} value={cat.category}>
                                 {cat.category}
                               </option>
                             ))}

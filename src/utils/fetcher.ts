@@ -56,7 +56,7 @@ export async function fetcher<CurrentPath extends keyof Paths, Method extends Me
   Paths[CurrentPath][Method] extends {
     responses: { [K in HttpOkayCodes]?: { schema: infer Response } };
   }
-    ? Response
+    ? Response & { statusCode: number }
     : undefined
 > {
   const url = compileURL(path, params as Record<string, string>, query as Record<string, string>);
@@ -71,10 +71,9 @@ export async function fetcher<CurrentPath extends keyof Paths, Method extends Me
     ...(body && { body: JSON.stringify((body as any).body) }),
   });
 
-  const data = await getJSON(response);
-
+  const data = (await getJSON(response)) as any;
   if (response.ok) {
-    return data as any;
+    return { ...data, statusCode: response.status };
   }
 
   throw new ResponseError(response.statusText, response.status, data);

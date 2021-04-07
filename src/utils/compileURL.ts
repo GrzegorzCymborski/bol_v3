@@ -1,4 +1,5 @@
 import type { paths as Paths } from '../types/swagger-types';
+import qs from 'querystring';
 
 const PARAMS_PATTERN = /{(\w+)}/g;
 
@@ -7,8 +8,7 @@ export function compileURL<CurrentPath extends keyof Paths>(
   params?: Record<string, string>,
   query?: Record<string, string>,
 ): string {
-  const queryString = query ? '?' + new URLSearchParams(query).toString() : '';
-
+  const queryString = query ? '?' + qs.encode(query) : '';
   if (!params) {
     return process.env.REACT_APP_BASE_URL + path + queryString;
   }

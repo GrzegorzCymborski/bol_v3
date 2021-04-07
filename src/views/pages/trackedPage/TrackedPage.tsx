@@ -3,24 +3,24 @@ import { CButton, CCard, CCardBody, CCardHeader, CCol, CDataTable, CImg, CRow } 
 import { useAppSelector } from '../../../hooks/reduxHooks';
 import { definitions } from '../../../types/swagger-types';
 import { useQuery } from 'react-query';
-import { deleteEAN, trackedProductsData } from '../../../API';
+import { deleteEAN } from '../../../API';
 import CIcon from '@coreui/icons-react';
+import { fetcher } from '../../../utils/fetcher';
 
 const TrackedPage: React.FC = () => {
   const { userAuthID } = useAppSelector((state) => state.user);
-  const getTrackedProducts = useQuery<definitions['GetProductsResponse']>(
+
+  const { data, refetch } = useQuery<definitions['GetProductsResponse']>(
     'tracked products fetch',
-    () => trackedProductsData(userAuthID!, 100, 1),
+    () => fetcher('/carts', 'get', { authorization: userAuthID! }, undefined, { limit: 100, page: 1 }),
     {
       refetchOnWindowFocus: false,
     },
   );
-  const { data } = getTrackedProducts;
-  console.log('data', data);
 
   const handleDeleteEAN = async (ean: number) => {
     await deleteEAN(userAuthID!, ean);
-    await getTrackedProducts.refetch();
+    await refetch();
   };
 
   const fields = [
@@ -48,7 +48,7 @@ const TrackedPage: React.FC = () => {
         <CCard>
           <CCardBody>
             <CDataTable
-              items={data === undefined || data.statusCode === 404 ? [] : data?.products}
+              items={data?.products ? data.products : []}
               size="sm"
               fields={fields}
               scopedSlots={{

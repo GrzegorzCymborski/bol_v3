@@ -1,26 +1,5 @@
-import { definitions } from './types/swagger-types';
-
-const urlStatsLink = `${process.env.REACT_APP_BASE_URL}/statistics`;
 const apiURL = `${process.env.REACT_APP_BASE_URL}/products?`;
 const cartURL = `${process.env.REACT_APP_BASE_URL}/carts`;
-
-export const statsData = async (usrID: string): Promise<definitions['StatisticsResponse']> => {
-  const response = await fetch(urlStatsLink, {
-    headers: { Authorization: usrID },
-  });
-  return await response.json();
-};
-
-export const productsData = async (
-  usrID: string,
-  queryString: string,
-  currentPage: number,
-): Promise<definitions['GetProductsResponse']> => {
-  const response = await fetch(apiURL + queryString + (currentPage && `&page=${currentPage}`), {
-    headers: { Authorization: usrID },
-  });
-  return await response.json();
-};
 
 export const handleTrackEAN = async (usrID: string, eanNo: number): Promise<void> => {
   const postBody = {
@@ -48,20 +27,6 @@ export const handleTrackEAN = async (usrID: string, eanNo: number): Promise<void
   }
 };
 
-export const queryTrackedEANs = async (usrID: string): Promise<{ data: number[] }> => {
-  const response = await fetch(`${cartURL}/raw`, {
-    headers: { Authorization: usrID },
-  });
-  return await response.json();
-};
-
-export const fetchOffers = async (usrID: string, offersID: string): Promise<definitions['GetOffersResponse']> => {
-  const response = await fetch(`${process.env.REACT_APP_BASE_URL}${offersID}`, {
-    headers: { Authorization: usrID },
-  });
-  return await response.json();
-};
-
 export const exportCSVtoFile = async (usrID: string, queryString: string): Promise<void> => {
   const response = await fetch(apiURL + queryString.replace('&limit=100', ''), {
     method: 'POST',
@@ -77,17 +42,6 @@ export const exportCSVtoFile = async (usrID: string, queryString: string): Promi
   document.body.appendChild(a);
   a.click();
   a.remove();
-};
-
-export const trackedProductsData = async (
-  usrID: string,
-  limit: number,
-  currentPage: number,
-): Promise<definitions['GetProductsResponse']> => {
-  const response = await fetch(cartURL + `?limit=${limit}` + `&page=${currentPage}`, {
-    headers: { Authorization: usrID },
-  });
-  return await response.json();
 };
 
 export const deleteEAN = async (usrID: string, ean: number): Promise<void> => {

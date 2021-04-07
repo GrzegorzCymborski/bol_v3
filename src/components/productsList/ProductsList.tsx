@@ -32,50 +32,7 @@ type Links = {
   economies?: string;
 };
 
-type productsQueryPropsData = {
-  rows: number;
-  products: productsQueryPropsProduct[];
-  page: productsQueryPropsPage;
-};
-type productsQueryPropsProduct = {
-  name: string;
-  ean: number;
-  product_img: string;
-  brand: string;
-  dimensions: string;
-  weight: string;
-  category?: string;
-  subcategory: string;
-  price: number;
-  rating: number;
-  _links?: Links;
-};
-type productsQueryPropsPage = {
-  current: number;
-  pages: number;
-};
-type productsQueryProps = {
-  data: productsQueryPropsData | undefined;
-  status: string;
-  isLoading: boolean;
-  isSuccess: boolean;
-  isError: boolean;
-  isIdle: boolean;
-  dataUpdatedAt: number;
-  error?: any;
-  errorUpdatedAt: number;
-  failureCount: number;
-  isFetched: boolean;
-  isFetchedAfterMount: boolean;
-  isFetching: boolean;
-  isLoadingError: boolean;
-  isPlaceholderData: boolean;
-  isPreviousData: boolean;
-  isRefetchError: boolean;
-  isStale: boolean;
-};
 type ProductsListProps = {
-  productsQuery: productsQueryProps | undefined;
   productsData: ProductsDataProps | undefined;
   trackedEANs: number[] | undefined;
   userAuthID: string;
@@ -87,7 +44,6 @@ type ProductsListProps = {
 };
 
 const ProductsList: React.FC<ProductsListProps> = ({
-  productsQuery,
   productsData,
   trackedEANs,
   userAuthID,
@@ -109,7 +65,7 @@ const ProductsList: React.FC<ProductsListProps> = ({
   ];
   return (
     <>
-      {productsQuery?.data ? (
+      {productsData ? (
         <CCol xs="12">
           <CCard>
             <CCardBody>
@@ -196,8 +152,8 @@ const ProductsList: React.FC<ProductsListProps> = ({
             </CCardBody>
           </CCard>
           <CPagination
-            activePage={productsData?.page.current}
-            pages={productsData?.page.pages}
+            activePage={productsData?.page?.current}
+            pages={productsData?.page?.pages}
             onActivePageChange={(i: number) => setCurrentPage(i)}
             align="center"
             limit={5}
