@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Dashboard = React.lazy(() => import('./views/pages/dashboard/Dashboard'));
-const UploadEANs = React.lazy(() => import('./views/pages/uploadEANs/UploadEANs'));
-const Combine2 = React.lazy(() => import('./views/pages/combineFiles/CombineFiles'));
-const TrackedPage = React.lazy(() => import('./views/pages/trackedPage/TrackedPage'));
-const SearchPage = React.lazy(() => import('./views/pages/searchPage/SearchPage'));
+const Dashboard = React.lazy(() => import('../views/pages/dashboard/Dashboard'));
+const UploadEANs = React.lazy(() => import('../views/pages/uploadEANs/UploadEANs'));
+const Combine2 = React.lazy(() => import('../views/pages/combineFiles/CombineFiles'));
+const TrackedPage = React.lazy(() => import('../views/pages/trackedPage/TrackedPage'));
+const SearchPage = React.lazy(() => import('../views/pages/searchPage/SearchPage'));
 
 const routes = [
   { path: '/', exact: true, component: Dashboard },
