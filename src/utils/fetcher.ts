@@ -72,7 +72,8 @@ export async function fetcher<CurrentPath extends keyof Paths, Method extends Me
   });
 
   const data = (await getJSON(response)) as any;
-  if (response.ok) {
+
+  if (response.ok || data.statusCode === 404) {
     return { ...data, statusCode: response.status };
   }
 
