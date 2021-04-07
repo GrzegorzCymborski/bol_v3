@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { useEffect } from 'react';
 import { auth, firestore } from './firebase/firebase';
@@ -9,7 +9,7 @@ import Spinner from './components/spinner/Spinner';
 const Login = lazy(() => import('./views/pages/login/Login'));
 const Layout = lazy(() => import('./containers/Layout'));
 
-const App: React.FC = () => {
+const App = () => {
   const userDatabase = firestore.collection('users');
   const dispatch = useAppDispatch();
   const { userLoged } = useAppSelector((state) => state.user);

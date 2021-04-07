@@ -51,7 +51,7 @@ type SearchPanelProps = {
   generatingCSV: boolean;
 };
 
-const SearchPanel: React.FC<SearchPanelProps> = ({
+const SearchPanel = ({
   compURL,
   isFetching,
   isLoading,

@@ -1,7 +1,6 @@
-import React from 'react';
 import { CCard, CCardBody, CCardHeader, CCol, CRow } from '@coreui/react';
 
-const CombineFiles: React.FC = () => {
+const CombineFiles = () => {
   return (
     <CRow>
       <CCol xs="12">

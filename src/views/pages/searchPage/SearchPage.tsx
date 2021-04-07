@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useAppSelector } from '../../../hooks/reduxHooks';
 import { CRow } from '@coreui/react';
@@ -20,7 +20,7 @@ type UrlProps = {
   category: operations['getProducts']['parameters']['query']['category'] | string;
 };
 
-const SearchPage: React.FC = () => {
+const SearchPage = () => {
   const [details, setDetails] = useState<number[]>([]);
   let queryString = '';
   const toggleDetails = (index: number) => {

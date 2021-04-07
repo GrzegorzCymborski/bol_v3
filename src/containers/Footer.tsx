@@ -1,6 +1,6 @@
 import { CFooter } from '@coreui/react';
 
-const Footer: React.FC = () => {
+const Footer = () => {
   return (
     <CFooter fixed={false}>
       <div className="mfs-auto">

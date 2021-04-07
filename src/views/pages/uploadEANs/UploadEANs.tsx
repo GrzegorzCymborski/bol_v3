@@ -1,7 +1,6 @@
-import React from 'react';
 import { CCard, CCardBody, CCardHeader, CCol, CRow } from '@coreui/react';
 
-const UploadEANs: React.FC = () => {
+const UploadEANs = () => {
   return (
     <CRow>
       <CCol xs="12">

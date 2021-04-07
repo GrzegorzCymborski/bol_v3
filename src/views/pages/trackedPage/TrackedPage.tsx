@@ -1,4 +1,3 @@
-import React from 'react';
 import { CButton, CCard, CCardBody, CCardHeader, CCol, CDataTable, CImg, CRow } from '@coreui/react';
 import { useAppSelector } from '../../../hooks/reduxHooks';
 import { definitions } from '../../../types/swagger-types';
@@ -7,7 +6,7 @@ import { deleteEAN } from '../../../API';
 import CIcon from '@coreui/icons-react';
 import { fetcher } from '../../../utils/fetcher';
 
-const TrackedPage: React.FC = () => {
+const TrackedPage = () => {
   const { userAuthID } = useAppSelector((state) => state.user);
 
   const { data, refetch } = useQuery<definitions['GetProductsResponse']>(

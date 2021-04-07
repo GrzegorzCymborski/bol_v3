@@ -1,4 +1,3 @@
-import React from 'react';
 import { useAppSelector, useAppDispatch } from '../hooks/reduxHooks';
 import { changeState } from '../redux/sidebar';
 import {
@@ -14,7 +13,7 @@ import {
 
 import navigation from './_nav';
 
-const Sidebar: React.FC = () => {
+const Sidebar = () => {
   const dispatch = useAppDispatch();
   const { sidebarShow } = useAppSelector((state) => state.sidebar);
 

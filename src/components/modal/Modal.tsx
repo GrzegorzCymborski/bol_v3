@@ -4,7 +4,7 @@ type ModalProps = {
   showModal: boolean;
 };
 
-const Modal: React.FC<ModalProps> = ({ showModal }: ModalProps) => {
+const Modal = ({ showModal }: ModalProps) => {
   return (
     <CModal show={showModal} centered>
       <CModalHeader closeButton>Something went wrong...</CModalHeader>

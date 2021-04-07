@@ -1,4 +1,3 @@
-import React from 'react';
 import { useAppSelector } from '../../../hooks/reduxHooks';
 import { useQuery } from 'react-query';
 import { formatNumber, updateTime } from '../../../utils/utils';
@@ -7,7 +6,7 @@ import CIcon from '@coreui/icons-react';
 import { definitions } from '../../../types/swagger-types';
 import { fetcher } from '../../../utils/fetcher';
 
-const Dashboard: React.FC = () => {
+const Dashboard = () => {
   const { userAuthID } = useAppSelector((state) => state.user);
 
   const { data, isLoading, isError } = useQuery<definitions['StatisticsResponse']>(

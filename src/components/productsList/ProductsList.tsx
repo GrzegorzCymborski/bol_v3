@@ -43,7 +43,7 @@ type ProductsListProps = {
   allowTracking: boolean | undefined;
 };
 
-const ProductsList: React.FC<ProductsListProps> = ({
+const ProductsList = ({
   productsData,
   trackedEANs,
   userAuthID,

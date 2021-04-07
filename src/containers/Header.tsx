@@ -3,7 +3,7 @@ import { changeState } from '../redux/sidebar';
 import { CHeader, CToggler, CSubheader, CLink } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
 
-const Header: React.FC = () => {
+const Header = () => {
   const dispatch = useAppDispatch();
   const { sidebarShow } = useAppSelector((state) => state.sidebar);
 

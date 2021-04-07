@@ -4,7 +4,7 @@ type ToasterProps = {
   showToast: boolean;
 };
 
-const Toaster: React.FC<ToasterProps> = ({ showToast }: ToasterProps) => {
+const Toaster = ({ showToast }: ToasterProps) => {
   return (
     <CToaster position="bottom-right" style={{ width: '70px' }}>
       <CToast show={showToast} fade>

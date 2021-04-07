@@ -1,4 +1,3 @@
-import React from 'react';
 import { useQuery } from 'react-query';
 import { useAppSelector } from '../../hooks/reduxHooks';
 import { Offers } from '../../types';
@@ -9,7 +8,7 @@ type ExpandedRowProps = {
   offerUrl: string;
 };
 
-const ExpandedRow: React.FC<ExpandedRowProps> = ({ offerUrl }: ExpandedRowProps) => {
+const ExpandedRow = ({ offerUrl }: ExpandedRowProps) => {
   const { userAuthID } = useAppSelector((state) => state.user);
 
   const offerID = parseInt(offerUrl.replace(/[^0-9]/g, ''));
