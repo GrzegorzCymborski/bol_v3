@@ -1,3 +1,5 @@
+import { operations } from './swagger-types';
+
 type Links = {
   self: string;
   carts: string;
@@ -9,4 +11,14 @@ export type Offers = {
   seller: string;
   portal: string;
   _links: Partial<Links>;
+};
+
+export type UrlProps = {
+  name: string;
+  results: number;
+  priceMin: number;
+  priceMax: number;
+  ratingMin: number;
+  ratingMax: number;
+  category: operations['getProducts']['parameters']['query']['category'] | string;
 };

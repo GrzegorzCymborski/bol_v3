@@ -1,22 +1,12 @@
-import { useAppSelector } from '../../../hooks/reduxHooks';
-import { useQuery } from 'react-query';
 import { formatNumber, updateTime } from '../../../utils/utils';
 import { CCard, CCardBody, CCol, CDataTable, CRow, CWidgetIcon } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
 import { definitions } from '../../../types/swagger-types';
-import { fetcher } from '../../../utils/fetcher';
 import { dashboardFields } from '../../../utils/tableFields';
+import useStats from '../../../hooks/useStats';
 
 const Dashboard = () => {
-  const { userAuthID } = useAppSelector((state) => state.user);
-
-  const { data, isLoading, isError } = useQuery<definitions['StatisticsResponse']>(
-    'stats fetch',
-    () => fetcher('/statistics', 'get', { authorization: userAuthID! }),
-    {
-      refetchOnWindowFocus: false,
-    },
-  );
+  const { data, isLoading, isError } = useStats();
 
   return (
     <CRow>

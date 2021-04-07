@@ -1,7 +1,4 @@
-import { useQuery } from 'react-query';
-import { useAppSelector } from '../../hooks/reduxHooks';
-import { Offers } from '../../types';
-import { fetcher } from '../../utils/fetcher';
+import useFetchSellers from '../../hooks/useFetchSellers';
 import Sellers from '../sellers/Sellers';
 
 type ExpandedRowProps = {
@@ -9,21 +6,7 @@ type ExpandedRowProps = {
 };
 
 const ExpandedRow = ({ offerUrl }: ExpandedRowProps) => {
-  const { userAuthID } = useAppSelector((state) => state.user);
-
-  const offerID = parseInt(offerUrl.replace(/[^0-9]/g, ''));
-
-  const arrWithSellers = useQuery(
-    'fetch more sellers',
-    () => fetcher('/products/{product_id}/offers', 'get', { authorization: userAuthID! }, { product_id: offerID }),
-    {
-      refetchOnWindowFocus: false,
-    },
-  );
-
-  const newArr = { ...arrWithSellers.data };
-  delete newArr?.statusCode;
-  const arrWithOffers = Object.entries(newArr).map((e) => e[1]) as Offers[];
+  const { arrWithOffers } = useFetchSellers(offerUrl);
 
   return <Sellers xs="6" md="4" offers={arrWithOffers} />;
 };

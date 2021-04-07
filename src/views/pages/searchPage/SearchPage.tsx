@@ -1,24 +1,15 @@
 import { useState, useEffect } from 'react';
-import { useQuery } from 'react-query';
 import { useAppSelector } from '../../../hooks/reduxHooks';
 import { CRow } from '@coreui/react';
 import Modal from '../../../components/modal/Modal';
 import Toaster from '../../../components/toaster/Toaster';
 import SearchPanel from '../../../components/searchPanel/SearchPanel';
 import ProductsList from '../../../components/productsList/ProductsList';
-import { fetcher } from '../../../utils/fetcher';
-import { operations } from '../../../types/swagger-types';
-import { exportCSVtoFile } from '../../../API';
-
-type UrlProps = {
-  name: string;
-  results: number;
-  priceMin: number;
-  priceMax: number;
-  ratingMin: number;
-  ratingMax: number;
-  category: operations['getProducts']['parameters']['query']['category'] | string;
-};
+import useStats from '../../../hooks/useStats';
+import { UrlProps } from '../../../types';
+import useProductsFetch from '../../../hooks/useProductsFetch';
+import useTrackedEANS from '../../../hooks/useTrackedEANS';
+import useCSVquery from '../../../hooks/useCSVquery';
 
 const SearchPage = () => {
   const [details, setDetails] = useState<number[]>([]);
@@ -35,35 +26,10 @@ const SearchPage = () => {
   const [queryURL, setQueryURL] = useState<UrlProps>();
   const [queryCSVurl, setQueryCSVurl] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<number>(1);
-
-  const { data, isError, isLoading } = useQuery(
-    'stats fetch',
-    () => fetcher('/statistics', 'get', { authorization: userAuthID! }),
-    {
-      refetchOnWindowFocus: false,
-    },
-  );
-
-  const { data: productsResponse, isError: isError2, isFetching, refetch: productsRefetch } = useQuery(
-    'products fetch',
-    () =>
-      fetcher('/products', 'get', { authorization: userAuthID! }, undefined, {
-        price: [queryURL!.priceMin, queryURL!.priceMax],
-        rate: [queryURL!.ratingMin, queryURL!.ratingMax],
-        records: queryURL?.results,
-        ...(queryURL?.name ? { name: queryURL.name } : null),
-        ...(queryURL?.category ? { category: queryURL.category as any } : null),
-        page: currentPage,
-        limit: 100,
-      }),
-    {
-      enabled: false,
-      refetchOnWindowFocus: false,
-      staleTime: Infinity,
-      retry: false,
-      cacheTime: 5000,
-    },
-  );
+  const { data, isError, isLoading } = useStats();
+  const { productsResponse, isProductsError, isFetching, productsRefetch } = useProductsFetch(queryURL!, currentPage);
+  const { trackedEANsArr, refetchEANS } = useTrackedEANS();
+  const { generatingCSV, refetchCSV } = useCSVquery(queryCSVurl);
 
   const composeUrl = ({ name, results, priceMin, priceMax, ratingMin, ratingMax, category }: UrlProps) => {
     queryString = `${
@@ -74,15 +40,6 @@ const SearchPage = () => {
     setQueryCSVurl(queryString);
     setQueryURL({ name, results, priceMin, priceMax, ratingMin, ratingMax, category });
   };
-
-  const csvQuery = useQuery('query csv', () => exportCSVtoFile(userAuthID!, queryCSVurl), {
-    enabled: false,
-  });
-
-  const { isFetching: generatingCSV, refetch: refetchCSV } = csvQuery;
-
-  const eansQuery = useQuery('tracked eans', () => fetcher('/carts/raw', 'get', { authorization: userAuthID! }));
-  const { data: trackedEANsArr } = eansQuery;
 
   useEffect(() => {
     if (queryURL) {
@@ -99,7 +56,7 @@ const SearchPage = () => {
   return (
     <>
       <Toaster showToast={isFetching} />
-      <Modal showModal={isError2 || productsResponse?.statusCode === 204} />
+      <Modal showModal={isProductsError || productsResponse?.statusCode === 204} />
 
       <CRow>
         <SearchPanel
@@ -120,7 +77,7 @@ const SearchPage = () => {
           productsData={productsResponse}
           trackedEANs={trackedEANsArr?.data}
           userAuthID={userAuthID!}
-          eansQuery={eansQuery}
+          refetchEANS={refetchEANS}
           toggleDetails={toggleDetails}
           details={details}
           setCurrentPage={setCurrentPage}
