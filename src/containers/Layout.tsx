@@ -3,7 +3,7 @@ import Header from './Header';
 import Footer from './Footer';
 import Content from './Content';
 
-const Layout: React.FC = () => {
+const Layout = () => {
   return (
     <div className="c-app c-default-layout">
       <Sidebar />

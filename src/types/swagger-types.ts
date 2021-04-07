@@ -93,7 +93,6 @@ export interface definitions {
     rows: number;
     products: definitions['products'];
     page: definitions['page'];
-    statusCode?: any;
   };
   Summary: {
     category:
@@ -180,11 +179,11 @@ export interface operations {
   getCarts: {
     parameters: {
       header: {
-        authorization: unknown;
+        authorization: string;
       };
       query: {
-        limit?: unknown;
-        page?: unknown;
+        limit?: number;
+        page?: number;
       };
     };
     responses: {
@@ -205,7 +204,7 @@ export interface operations {
   postCarts: {
     parameters: {
       header: {
-        authorization: unknown;
+        authorization: string;
       };
       body: {
         body?: definitions['Eans'];
@@ -225,7 +224,7 @@ export interface operations {
   deleteCarts: {
     parameters: {
       header: {
-        authorization: unknown;
+        authorization: string;
       };
       body: {
         body?: definitions['Eans'];
@@ -247,16 +246,46 @@ export interface operations {
   getProducts: {
     parameters: {
       header: {
-        authorization: unknown;
+        authorization: string;
       };
       query: {
-        name?: unknown;
-        price?: unknown;
-        rate?: unknown;
-        category?: unknown;
-        records?: unknown;
-        limit?: unknown;
-        page?: unknown;
+        name?: string;
+        price?: number[];
+        rate?: number[];
+        category?:
+          | 'Auto & Motor'
+          | 'Baby'
+          | 'Beauty'
+          | 'Boeken'
+          | 'Cadeaukaarten'
+          | 'Computer'
+          | 'Damesmode'
+          | 'Dieren'
+          | 'Dranken & Delicatessen'
+          | 'Elektronica'
+          | 'Erotiek'
+          | 'Fietsen & Accessoires'
+          | 'Films & Series'
+          | 'Games'
+          | 'Gezondheid'
+          | 'Herenmode'
+          | 'Huishouden'
+          | 'Kamperen & Outdoor'
+          | 'Kantoor & School'
+          | 'Kerst'
+          | 'Kindermode'
+          | 'Klussen'
+          | 'Koken & Tafelen'
+          | 'Muziek'
+          | 'Persoonlijke verzorging'
+          | 'Reisbagage & Reisaccessoires'
+          | 'Speelgoed'
+          | 'Sport'
+          | 'Tuin'
+          | 'Wonen';
+        records?: number;
+        limit?: number;
+        page?: number;
       };
     };
     responses: {
@@ -275,14 +304,44 @@ export interface operations {
   postProducts: {
     parameters: {
       header: {
-        authorization: unknown;
+        authorization: string;
       };
       query: {
-        name?: unknown;
-        price?: unknown;
-        rate?: unknown;
-        category?: unknown;
-        records?: unknown;
+        name?: string;
+        price?: number[];
+        rate?: number[];
+        category?:
+          | 'Auto & Motor'
+          | 'Baby'
+          | 'Beauty'
+          | 'Boeken'
+          | 'Cadeaukaarten'
+          | 'Computer'
+          | 'Damesmode'
+          | 'Dieren'
+          | 'Dranken & Delicatessen'
+          | 'Elektronica'
+          | 'Erotiek'
+          | 'Fietsen & Accessoires'
+          | 'Films & Series'
+          | 'Games'
+          | 'Gezondheid'
+          | 'Herenmode'
+          | 'Huishouden'
+          | 'Kamperen & Outdoor'
+          | 'Kantoor & School'
+          | 'Kerst'
+          | 'Kindermode'
+          | 'Klussen'
+          | 'Koken & Tafelen'
+          | 'Muziek'
+          | 'Persoonlijke verzorging'
+          | 'Reisbagage & Reisaccessoires'
+          | 'Speelgoed'
+          | 'Sport'
+          | 'Tuin'
+          | 'Wonen';
+        records?: number;
       };
     };
     responses: {
@@ -301,7 +360,7 @@ export interface operations {
   getStatistics: {
     parameters: {
       header: {
-        authorization: unknown;
+        authorization: string;
       };
     };
     responses: {
@@ -316,13 +375,13 @@ export interface operations {
   getCartsRaw: {
     parameters: {
       header: {
-        authorization: unknown;
+        authorization: string;
       };
     };
     responses: {
       /** OK */
       200: {
-        schema: definitions['GetProductsResponse'];
+        schema: definitions['GetProductsEansResponse'];
       };
       /** Unauthorized */
       401: unknown;
@@ -333,10 +392,10 @@ export interface operations {
   getProductsProduct_id: {
     parameters: {
       header: {
-        authorization: unknown;
+        authorization: string;
       };
       path: {
-        product_id?: unknown;
+        product_id?: number;
       };
     };
     responses: {
@@ -355,10 +414,10 @@ export interface operations {
   getProductsProduct_idOffers: {
     parameters: {
       header: {
-        authorization: unknown;
+        authorization: string;
       };
       path: {
-        product_id?: unknown;
+        product_id?: number;
       };
     };
     responses: {
@@ -375,11 +434,11 @@ export interface operations {
   getProductsProduct_idOffersOffer_id: {
     parameters: {
       header: {
-        authorization: unknown;
+        authorization: string;
       };
       path: {
-        product_id?: unknown;
-        offer_id?: unknown;
+        product_id?: number;
+        offer_id?: number;
       };
     };
     responses: {
@@ -398,15 +457,15 @@ export interface operations {
   getProductsProduct_idOffersOffer_idCarts: {
     parameters: {
       header: {
-        authorization: unknown;
+        authorization: string;
       };
       path: {
-        product_id?: unknown;
-        offer_id?: unknown;
+        product_id?: number;
+        offer_id?: number;
       };
       query: {
-        limit?: unknown;
-        page?: unknown;
+        limit?: number;
+        page?: number;
       };
     };
     responses: {
@@ -429,15 +488,15 @@ export interface operations {
   getProductsProduct_idOffersOffer_idEconomies: {
     parameters: {
       header: {
-        authorization: unknown;
+        authorization: string;
       };
       path: {
-        product_id?: unknown;
-        offer_id?: unknown;
+        product_id?: number;
+        offer_id?: number;
       };
       query: {
-        limit?: unknown;
-        page?: unknown;
+        limit?: number;
+        page?: number;
       };
     };
     responses: {

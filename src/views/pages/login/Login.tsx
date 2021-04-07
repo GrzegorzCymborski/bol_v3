@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import tryLogin from '../../../utils/auth';
+import { useState } from 'react';
+import tryLogin from '../../../API/auth';
 import { Formik } from 'formik';
 import { loginSchema } from '../../../utils/yup/loginSchema';
 import CIcon from '@coreui/icons-react';
@@ -30,7 +30,7 @@ type HandleSubmitProps = {
   resetForm: () => void;
 };
 
-const Login: React.FC = () => {
+const Login = () => {
   const [modal, setModal] = useState(false);
 
   const toggle = () => {

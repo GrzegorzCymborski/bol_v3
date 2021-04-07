@@ -1,38 +1,17 @@
-import React from 'react';
 import { CButton, CCard, CCardBody, CCardHeader, CCol, CDataTable, CImg, CRow } from '@coreui/react';
-import { useAppSelector } from '../../../hooks/reduxHooks';
 import { definitions } from '../../../types/swagger-types';
-import { useQuery } from 'react-query';
-import { deleteEAN, trackedProductsData } from '../../../API';
+import { deleteEAN } from '../../../API/API';
 import CIcon from '@coreui/icons-react';
+import { trackedPageFields } from '../../../utils/tableFields';
+import useTracked from '../../../hooks/useTracked';
 
-const TrackedPage: React.FC = () => {
-  const { userAuthID } = useAppSelector((state) => state.user);
-  const getTrackedProducts = useQuery<definitions['GetProductsResponse']>(
-    'tracked products fetch',
-    () => trackedProductsData(userAuthID!, 100, 1),
-    {
-      refetchOnWindowFocus: false,
-    },
-  );
-  const { data } = getTrackedProducts;
-  console.log('data', data);
+const TrackedPage = () => {
+  const { data, refetch, userAuthID } = useTracked();
 
   const handleDeleteEAN = async (ean: number) => {
     await deleteEAN(userAuthID!, ean);
-    await getTrackedProducts.refetch();
+    await refetch();
   };
-
-  const fields = [
-    { key: 'product_img', label: 'Image', _style: { width: '5%' } },
-    { key: 'name', label: 'Name' },
-    { key: 'ean', label: 'EAN', _style: { width: '10%' } },
-    { key: 'subcategory', label: 'Subcategory', _style: { width: '10%' } },
-    { key: 'price', label: 'Price', _style: { width: '5%' } },
-    { key: 'rating', label: 'Rating', _style: { width: '5%' } },
-    { key: 'show_details', label: 'Info', _style: { width: '1%' } },
-    { key: 'delete_ean', label: 'Delete', _style: { width: '1%' } },
-  ];
 
   return (
     <CRow>
@@ -48,9 +27,9 @@ const TrackedPage: React.FC = () => {
         <CCard>
           <CCardBody>
             <CDataTable
-              items={data === undefined || data.statusCode === 404 ? [] : data?.products}
+              items={data?.products ? data.products : []}
               size="sm"
-              fields={fields}
+              fields={trackedPageFields}
               scopedSlots={{
                 product_img: ({ product_img }: definitions['Product']) => (
                   <td>

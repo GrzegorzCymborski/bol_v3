@@ -1,26 +1,12 @@
-import React from 'react';
-import { useAppSelector } from '../../../hooks/reduxHooks';
-import { useQuery } from 'react-query';
 import { formatNumber, updateTime } from '../../../utils/utils';
 import { CCard, CCardBody, CCol, CDataTable, CRow, CWidgetIcon } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
-import { statsData } from '../../../API';
 import { definitions } from '../../../types/swagger-types';
+import { dashboardFields } from '../../../utils/tableFields';
+import useStats from '../../../hooks/useStats';
 
-const Dashboard: React.FC = () => {
-  const { userAuthID } = useAppSelector((state) => state.user);
-  const { data, isLoading, isError } = useQuery<definitions['StatisticsResponse']>(
-    'stats fetch',
-    () => statsData(userAuthID!),
-    {
-      refetchOnWindowFocus: false,
-    },
-  );
-
-  const fields = [
-    { key: 'category', label: 'Categories', _style: { width: '80%' } },
-    { key: 'rows', label: 'Records', _style: { width: '20%' }, sorter: true },
-  ];
+const Dashboard = () => {
+  const { data, isLoading, isError } = useStats();
 
   return (
     <CRow>
@@ -69,7 +55,7 @@ const Dashboard: React.FC = () => {
               <CCardBody>
                 <CDataTable
                   items={data?.categories}
-                  fields={fields}
+                  fields={dashboardFields}
                   itemsPerPage={50}
                   size="sm"
                   sorter

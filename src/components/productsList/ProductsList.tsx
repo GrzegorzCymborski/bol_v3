@@ -1,7 +1,8 @@
 import CIcon from '@coreui/icons-react';
 import { CButton, CCard, CCardBody, CCol, CCollapse, CDataTable, CImg, CPagination, CRow } from '@coreui/react';
-import { handleTrackEAN } from '../../API';
+import { handleTrackEAN } from '../../API/API';
 import { definitions } from '../../types/swagger-types';
+import { productListFields } from '../../utils/tableFields';
 import ExpandedRow from '../expandedRow/ExpandedRow';
 
 type ProductsDataPropsProduct = {
@@ -32,90 +33,36 @@ type Links = {
   economies?: string;
 };
 
-type productsQueryPropsData = {
-  rows: number;
-  products: productsQueryPropsProduct[];
-  page: productsQueryPropsPage;
-};
-type productsQueryPropsProduct = {
-  name: string;
-  ean: number;
-  product_img: string;
-  brand: string;
-  dimensions: string;
-  weight: string;
-  category?: string;
-  subcategory: string;
-  price: number;
-  rating: number;
-  _links?: Links;
-};
-type productsQueryPropsPage = {
-  current: number;
-  pages: number;
-};
-type productsQueryProps = {
-  data: productsQueryPropsData | undefined;
-  status: string;
-  isLoading: boolean;
-  isSuccess: boolean;
-  isError: boolean;
-  isIdle: boolean;
-  dataUpdatedAt: number;
-  error?: any;
-  errorUpdatedAt: number;
-  failureCount: number;
-  isFetched: boolean;
-  isFetchedAfterMount: boolean;
-  isFetching: boolean;
-  isLoadingError: boolean;
-  isPlaceholderData: boolean;
-  isPreviousData: boolean;
-  isRefetchError: boolean;
-  isStale: boolean;
-};
 type ProductsListProps = {
-  productsQuery: productsQueryProps | undefined;
   productsData: ProductsDataProps | undefined;
   trackedEANs: number[] | undefined;
   userAuthID: string;
-  eansQuery: any;
+  refetchEANS: () => void;
   toggleDetails: (arg: number) => void;
   details: number[];
   setCurrentPage: (arg: number) => void;
   allowTracking: boolean | undefined;
 };
 
-const ProductsList: React.FC<ProductsListProps> = ({
-  productsQuery,
+const ProductsList = ({
   productsData,
   trackedEANs,
   userAuthID,
-  eansQuery,
+  refetchEANS,
   toggleDetails,
   details,
   setCurrentPage,
   allowTracking,
 }: ProductsListProps) => {
-  const fields = [
-    { key: 'product_img', label: 'Image', _style: { width: '5%' } },
-    { key: 'name', label: 'Name' },
-    { key: 'ean', label: 'EAN', _style: { width: '10%' } },
-    { key: 'subcategory', label: 'Subcategory', _style: { width: '10%' } },
-    { key: 'price', label: 'Price', _style: { width: '5%' } },
-    { key: 'rating', label: 'Rating', _style: { width: '5%' } },
-    { key: 'track', label: 'Track', _style: { width: '5%' } },
-    { key: 'show_details', label: 'Info', _style: { width: '1%' } },
-  ];
   return (
     <>
-      {productsQuery?.data ? (
+      {productsData ? (
         <CCol xs="12">
           <CCard>
             <CCardBody>
               <CDataTable
                 items={productsData?.products}
-                fields={fields}
+                fields={productListFields}
                 scopedSlots={{
                   product_img: ({ product_img }: definitions['Product']) => (
                     <td>
@@ -135,7 +82,7 @@ const ProductsList: React.FC<ProductsListProps> = ({
 
                             target.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="c-icon" role="img"><path fill="var(--ci-primary-color, currentColor)" d="M199.066,456l-7.379-7.514-3.94-3.9-86.2-86.2.053-.055L17.936,274.665l97.614-97.613,83.565,83.565L398.388,61.344,496,158.958,296.729,358.229,285.469,369.6ZM146.6,358.183l52.459,52.46.1-.1.054.054,52.311-52.311,11.259-11.368L450.746,158.958,398.388,106.6,199.115,305.871,115.55,222.306,63.191,274.665l83.464,83.463Z" class="ci-primary"></path></svg>`;
                             await handleTrackEAN(userAuthID, ean);
-                            await eansQuery.refetch();
+                            refetchEANS();
                           }}
                         />
                       ) : (
@@ -196,8 +143,8 @@ const ProductsList: React.FC<ProductsListProps> = ({
             </CCardBody>
           </CCard>
           <CPagination
-            activePage={productsData?.page.current}
-            pages={productsData?.page.pages}
+            activePage={productsData?.page?.current}
+            pages={productsData?.page?.pages}
             onActivePageChange={(i: number) => setCurrentPage(i)}
             align="center"
             limit={5}

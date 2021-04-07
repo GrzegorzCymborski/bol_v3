@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { CContainer, CFade } from '@coreui/react';
 
@@ -10,7 +10,7 @@ const loading = (
   </div>
 );
 
-const Content: React.FC = () => {
+const Content = () => {
   return (
     <main className="c-main">
       <CContainer fluid>
