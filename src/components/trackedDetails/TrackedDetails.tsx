@@ -23,7 +23,6 @@ const TrackedDetails = ({
     refetch();
   }, [name, refetch]);
 
-  console.log(arrWithOffers);
   return (
     <CCard>
       <CCardHeader>{name}</CCardHeader>
@@ -50,9 +49,9 @@ const TrackedDetails = ({
           ))}
         </CNav>
         <CTabContent className="mx-4 my-4">
-          {arrWithOffers.map(({ _links }, index) => (
+          {arrWithOffers.map((props, index) => (
             <CTabPane key={index}>
-              <SellerCharts {..._links} />
+              <SellerCharts {...props} />
             </CTabPane>
           ))}
         </CTabContent>
