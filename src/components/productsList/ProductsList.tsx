@@ -2,6 +2,7 @@ import CIcon from '@coreui/icons-react';
 import { CButton, CCard, CCardBody, CCol, CCollapse, CDataTable, CImg, CPagination, CRow } from '@coreui/react';
 import { handleTrackEAN } from '../../API';
 import { definitions } from '../../types/swagger-types';
+import { productListFields } from '../../utils/tableFields';
 import ExpandedRow from '../expandedRow/ExpandedRow';
 
 type ProductsDataPropsProduct = {
@@ -53,16 +54,6 @@ const ProductsList = ({
   setCurrentPage,
   allowTracking,
 }: ProductsListProps) => {
-  const fields = [
-    { key: 'product_img', label: 'Image', _style: { width: '5%' } },
-    { key: 'name', label: 'Name' },
-    { key: 'ean', label: 'EAN', _style: { width: '10%' } },
-    { key: 'subcategory', label: 'Subcategory', _style: { width: '10%' } },
-    { key: 'price', label: 'Price', _style: { width: '5%' } },
-    { key: 'rating', label: 'Rating', _style: { width: '5%' } },
-    { key: 'track', label: 'Track', _style: { width: '5%' } },
-    { key: 'show_details', label: 'Info', _style: { width: '1%' } },
-  ];
   return (
     <>
       {productsData ? (
@@ -71,7 +62,7 @@ const ProductsList = ({
             <CCardBody>
               <CDataTable
                 items={productsData?.products}
-                fields={fields}
+                fields={productListFields}
                 scopedSlots={{
                   product_img: ({ product_img }: definitions['Product']) => (
                     <td>

@@ -5,6 +5,7 @@ import { useQuery } from 'react-query';
 import { deleteEAN } from '../../../API';
 import CIcon from '@coreui/icons-react';
 import { fetcher } from '../../../utils/fetcher';
+import { trackedPageFields } from '../../../utils/tableFields';
 
 const TrackedPage = () => {
   const { userAuthID } = useAppSelector((state) => state.user);
@@ -22,17 +23,6 @@ const TrackedPage = () => {
     await refetch();
   };
 
-  const fields = [
-    { key: 'product_img', label: 'Image', _style: { width: '5%' } },
-    { key: 'name', label: 'Name' },
-    { key: 'ean', label: 'EAN', _style: { width: '10%' } },
-    { key: 'subcategory', label: 'Subcategory', _style: { width: '10%' } },
-    { key: 'price', label: 'Price', _style: { width: '5%' } },
-    { key: 'rating', label: 'Rating', _style: { width: '5%' } },
-    { key: 'show_details', label: 'Info', _style: { width: '1%' } },
-    { key: 'delete_ean', label: 'Delete', _style: { width: '1%' } },
-  ];
-
   return (
     <CRow>
       <CCol xs="12">
@@ -49,7 +39,7 @@ const TrackedPage = () => {
             <CDataTable
               items={data?.products ? data.products : []}
               size="sm"
-              fields={fields}
+              fields={trackedPageFields}
               scopedSlots={{
                 product_img: ({ product_img }: definitions['Product']) => (
                   <td>

@@ -5,6 +5,7 @@ import { CCard, CCardBody, CCol, CDataTable, CRow, CWidgetIcon } from '@coreui/r
 import CIcon from '@coreui/icons-react';
 import { definitions } from '../../../types/swagger-types';
 import { fetcher } from '../../../utils/fetcher';
+import { dashboardFields } from '../../../utils/tableFields';
 
 const Dashboard = () => {
   const { userAuthID } = useAppSelector((state) => state.user);
@@ -16,11 +17,6 @@ const Dashboard = () => {
       refetchOnWindowFocus: false,
     },
   );
-
-  const fields = [
-    { key: 'category', label: 'Categories', _style: { width: '80%' } },
-    { key: 'rows', label: 'Records', _style: { width: '20%' }, sorter: true },
-  ];
 
   return (
     <CRow>
@@ -69,7 +65,7 @@ const Dashboard = () => {
               <CCardBody>
                 <CDataTable
                   items={data?.categories}
-                  fields={fields}
+                  fields={dashboardFields}
                   itemsPerPage={50}
                   size="sm"
                   sorter
