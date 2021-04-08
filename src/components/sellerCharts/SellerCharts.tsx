@@ -1,24 +1,24 @@
 import { CLink } from '@coreui/react';
-import useCarts from '../../hooks/useCarts';
+import { useEffect } from 'react';
+import { useAppSelector } from '../../hooks/reduxHooks';
 import useEconomies from '../../hooks/useEconomies';
-import { definitions } from '../../types/swagger-types';
 
-const SellerCharts = ({ _links, offer_url }: definitions['Offer']) => {
-  const selfArr = _links.self!.split('/');
-  const productID = parseInt(selfArr[2]);
-  const offerID = parseInt(selfArr[4]);
+const SellerCharts = () => {
+  const { trackedOfferID, trackedProductID, offerURL } = useAppSelector((state) => state.trackedSeller);
 
-  const { data: economiesData } = useEconomies(productID, offerID);
-  const { data: cartsData } = useCarts(productID, offerID);
+  const { data: economiesData, refetch } = useEconomies(trackedProductID, trackedOfferID);
 
   economiesData ? console.log('economiesData', economiesData) : null;
-  cartsData ? console.log('cartsData', cartsData) : null;
+
+  useEffect(() => {
+    refetch();
+  }, [trackedOfferID, trackedProductID, offerURL, refetch]);
 
   return (
     <>
-      <p> {_links.self}</p>
-      <CLink className="btn" href={`https://bol.com${offer_url}`} target="_blank" rel="noopener noreferrer">
-        Offer Link
+      <CLink className="btn" href={offerURL} target="_blank" rel="noopener noreferrer">
+        Offer Link / {offerURL}
+        <pre>{JSON.stringify(economiesData?.economies![1].price, undefined, 2)}</pre>
       </CLink>
     </>
   );

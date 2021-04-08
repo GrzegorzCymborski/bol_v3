@@ -6,10 +6,13 @@ import { trackedPageFields } from '../../../utils/tableFields';
 import useTracked from '../../../hooks/useTracked';
 import { useState } from 'react';
 import TrackedDetails from '../../../components/trackedDetails/TrackedDetails';
+import { useAppDispatch } from '../../../hooks/reduxHooks';
+import { setProductAndOfferIDS } from '../../../redux/trackedSeller';
 
 const TrackedPage = () => {
   const [trackedItem, setTrackedItem] = useState<definitions['Product']>();
   const { data, refetch, userAuthID } = useTracked();
+  const dispatch = useAppDispatch();
 
   const handleDeleteEAN = async (ean: number) => {
     await deleteEAN(userAuthID!, ean);
@@ -34,7 +37,13 @@ const TrackedPage = () => {
                 show_details: (item: definitions['Product'], index: number) => {
                   return (
                     <td>
-                      <CButton size="sm" onClick={() => setTrackedItem(item)}>
+                      <CButton
+                        size="sm"
+                        onClick={() => {
+                          setTrackedItem(item);
+                          dispatch(setProductAndOfferIDS(''));
+                        }}
+                      >
                         <CIcon name="cilBarChart" />
                       </CButton>
                     </td>

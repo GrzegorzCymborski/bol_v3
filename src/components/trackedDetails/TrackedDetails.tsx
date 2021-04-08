@@ -1,6 +1,8 @@
-import { CCard, CCardHeader, CCardBody, CNav, CNavItem, CNavLink, CTabContent, CTabPane, CTabs } from '@coreui/react';
+import { CCard, CCardHeader, CCardBody, CNav, CNavItem, CNavLink, CTabs, CTabContent, CTabPane } from '@coreui/react';
 import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import useFetchSellers from '../../hooks/useFetchSellers';
+import { setProductAndOfferIDS } from '../../redux/trackedSeller';
 import { definitions } from '../../types/swagger-types';
 import SellerCharts from '../sellerCharts/SellerCharts';
 
@@ -17,11 +19,22 @@ const TrackedDetails = ({
   _links,
   product_img,
 }: definitions['Product']) => {
+  const dispatch = useAppDispatch();
+
   const { arrWithOffers, refetch } = useFetchSellers(_links!.offers!);
+  const { offerURL } = useAppSelector((state) => state.trackedSeller);
 
   useEffect(() => {
     refetch();
   }, [name, refetch]);
+
+  const handleTrackedProduct = (links: string, offer_url: string) => {
+    const selfArr = links.split('/');
+    const productID = parseInt(selfArr[2]);
+    const offerID = parseInt(selfArr[4]);
+    const trackedProduct = { productID, offerID, offer_url: `https://bol.com${offer_url}` };
+    dispatch(setProductAndOfferIDS(trackedProduct));
+  };
 
   return (
     <CCard>
@@ -42,19 +55,23 @@ const TrackedDetails = ({
 
       <CTabs>
         <CNav variant="tabs">
-          {arrWithOffers.map(({ seller }, index) => (
+          {arrWithOffers.map(({ seller, _links, offer_url }, index) => (
             <CNavItem key={index}>
-              <CNavLink>{seller}</CNavLink>
+              <CNavLink data-tab={index} onClick={() => handleTrackedProduct(_links.self!, offer_url)}>
+                {seller}
+              </CNavLink>
             </CNavItem>
           ))}
         </CNav>
-        <CTabContent className="mx-4 my-4">
-          {arrWithOffers.map((props, index) => (
-            <CTabPane key={index}>
-              <SellerCharts {...props} />
-            </CTabPane>
-          ))}
-        </CTabContent>
+        {offerURL && (
+          <CTabContent className="mx-4 my-4">
+            {arrWithOffers.map((props, index) => (
+              <CTabPane key={index} data-tab={index}>
+                <SellerCharts />
+              </CTabPane>
+            ))}
+          </CTabContent>
+        )}
       </CTabs>
     </CCard>
   );

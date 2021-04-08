@@ -2,9 +2,9 @@ import { useQuery } from 'react-query';
 import { fetcher } from '../API/fetcher/fetcher';
 import { useAppSelector } from './reduxHooks';
 
-const useEconomies = (productID: number, offerID: number) => {
+const useEconomies = (productID: number | undefined, offerID: number | undefined) => {
   const { userAuthID } = useAppSelector((state) => state.user);
-  const { data } = useQuery(
+  const { data, refetch } = useQuery(
     'economies fetch',
     () =>
       fetcher(
@@ -17,7 +17,7 @@ const useEconomies = (productID: number, offerID: number) => {
       refetchOnWindowFocus: false,
     },
   );
-  return { data };
+  return { data, refetch };
 };
 
 export default useEconomies;

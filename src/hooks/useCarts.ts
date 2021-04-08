@@ -2,7 +2,7 @@ import { useQuery } from 'react-query';
 import { fetcher } from '../API/fetcher/fetcher';
 import { useAppSelector } from './reduxHooks';
 
-const useCarts = (productID: number, offerID: number) => {
+const useCarts = (productID: number | undefined, offerID: number | undefined) => {
   const { userAuthID } = useAppSelector((state) => state.user);
   const { data } = useQuery(
     'carts fetch',
