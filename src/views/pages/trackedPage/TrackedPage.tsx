@@ -1,28 +1,26 @@
-import { CButton, CCard, CCardBody, CCardHeader, CCol, CDataTable, CImg, CRow } from '@coreui/react';
+import { CButton, CCard, CCardBody, CCol, CDataTable, CImg, CRow } from '@coreui/react';
 import { definitions } from '../../../types/swagger-types';
 import { deleteEAN } from '../../../API/API';
 import CIcon from '@coreui/icons-react';
 import { trackedPageFields } from '../../../utils/tableFields';
 import useTracked from '../../../hooks/useTracked';
+import { useState } from 'react';
+import TrackedDetails from '../../../components/trackedDetails/TrackedDetails';
+import { useAppDispatch } from '../../../hooks/reduxHooks';
+import { setProductAndOfferIDS } from '../../../redux/trackedSeller';
 
 const TrackedPage = () => {
+  const [trackedItem, setTrackedItem] = useState<definitions['Product']>();
   const { data, refetch, userAuthID } = useTracked();
+  const dispatch = useAppDispatch();
 
   const handleDeleteEAN = async (ean: number) => {
     await deleteEAN(userAuthID!, ean);
     await refetch();
   };
-
   return (
     <CRow>
-      <CCol xs="12">
-        <CCard>
-          <CCardHeader>Tracked module</CCardHeader>
-          <CCardBody>
-            <h6>here comes the tracked module</h6>
-          </CCardBody>
-        </CCard>
-      </CCol>
+      <CCol xs="12">{trackedItem && <TrackedDetails {...trackedItem} />}</CCol>
       <CCol xs="12">
         <CCard>
           <CCardBody>
@@ -36,10 +34,16 @@ const TrackedPage = () => {
                     <CImg src={product_img} thumbnail />
                   </td>
                 ),
-                show_details: (item: never, index: number) => {
+                show_details: (item: definitions['Product'], index: number) => {
                   return (
                     <td>
-                      <CButton size="sm">
+                      <CButton
+                        size="sm"
+                        onClick={() => {
+                          setTrackedItem(item);
+                          dispatch(setProductAndOfferIDS(''));
+                        }}
+                      >
                         <CIcon name="cilBarChart" />
                       </CButton>
                     </td>

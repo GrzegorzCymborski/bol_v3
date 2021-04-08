@@ -16,3 +16,13 @@ select {
   text-indent: 1px;
   text-overflow: '';
 }
+
+li.page-item > a {
+  color: #3c4b64 !important;
+}
+
+li.active.page-item > a {
+  border-color: #3c4b64 !important;
+  background-color: #3c4b64 !important;
+  color: #fff !important;
+}
