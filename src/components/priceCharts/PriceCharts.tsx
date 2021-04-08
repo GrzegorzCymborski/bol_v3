@@ -8,19 +8,19 @@ const PriceCharts = () => {
   const [activePage, setActivePage] = useState<number>(1);
   const { trackedOfferID, trackedProductID, offerURL } = useAppSelector((state) => state.trackedSeller);
 
-  const { data: economiesData, refetch } = useEconomies(trackedProductID!, trackedOfferID!, activePage);
+  const { data, refetch } = useEconomies(trackedProductID!, trackedOfferID!, activePage);
 
-  economiesData ? console.log('economiesData', economiesData) : null;
+  data ? console.log('data', data) : null;
 
   useEffect(() => {
     refetch();
   }, [trackedOfferID, trackedProductID, offerURL, refetch, activePage]);
 
-  const chart = {
+  const chartPrice = {
     options: {
       colors: ['#3C4B64'],
       xaxis: {
-        categories: economiesData?.economies?.map(({ updated_at }) => updated_at),
+        categories: data?.economies?.map(({ updated_at }) => updated_at),
         labels: {
           show: false,
         },
@@ -28,7 +28,7 @@ const PriceCharts = () => {
       },
       yaxis: {
         min: 0,
-        max: Math.max(economiesData?.economies ? economiesData.economies[0].price : 0) + 15,
+        max: Math.max(data?.economies ? data.economies[0].price : 0) + 15,
       },
       chart: {
         type: 'area',
@@ -36,7 +36,7 @@ const PriceCharts = () => {
           enabled: false,
         },
       },
-      labels: economiesData?.economies?.map(({ updated_at }) => updated_at),
+      labels: data?.economies?.map(({ updated_at }) => updated_at),
       title: {
         text: 'Price Charts',
         align: 'left',
@@ -52,19 +52,56 @@ const PriceCharts = () => {
     series: [
       {
         name: 'Price',
-        data: economiesData?.economies?.map(({ price }) => price),
+        data: data?.economies?.map(({ price }) => price),
       },
     ],
   };
+  const chartRating = {
+    options: {
+      colors: ['#3C4B64'],
+      xaxis: {
+        categories: data?.economies?.map(({ updated_at }) => updated_at),
+        labels: {
+          show: false,
+        },
+        type: 'datetime',
+      },
+      yaxis: {
+        min: 0,
+      },
+      chart: {
+        type: 'area',
+        zoom: {
+          enabled: false,
+        },
+      },
+      labels: data?.economies?.map(({ updated_at }) => updated_at),
+      title: {
+        text: 'Rating',
+        align: 'left',
+      },
+      dataLabels: {
+        enabled: false,
+      },
+    },
 
+    series: [
+      {
+        name: 'Rating',
+        data: data?.economies?.map(({ rating }) => rating),
+      },
+    ],
+  };
   return (
     <>
-      {economiesData?.economies && (
+      {data?.economies && (
         <>
-          <ReactApexChart options={chart.options} series={chart.series} type="area" height="300px" />
+          <ReactApexChart options={chartPrice.options} series={chartPrice.series} type="area" height="300px" />
+          <ReactApexChart options={chartRating.options} series={chartRating.series} type="area" height="250px" />
+
           <CPagination
-            activePage={economiesData?.page?.current}
-            pages={economiesData?.page?.pages}
+            activePage={data?.page?.current}
+            pages={data?.page?.pages}
             onActivePageChange={(i: number) => setActivePage(i)}
             align="center"
             limit={5}

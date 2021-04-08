@@ -12,7 +12,7 @@ const useCarts = (productID: number, offerID: number, pageID: number) => {
         'get',
         { authorization: userAuthID! },
         { offer_id: offerID, product_id: productID },
-        { limit: 30, page: pageID },
+        { limit: 200, page: pageID },
       ),
     {
       refetchOnWindowFocus: false,

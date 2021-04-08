@@ -4,7 +4,8 @@ import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import useFetchSellers from '../../hooks/useFetchSellers';
 import { setProductAndOfferIDS } from '../../redux/trackedSeller';
 import { definitions } from '../../types/swagger-types';
-import SellerCharts from '../sellerCharts/SellerCharts';
+import CartCharts from '../CartCharts/CartCharts';
+import PriceCharts from '../priceCharts/PriceCharts';
 
 const TrackedDetails = ({
   name,
@@ -71,7 +72,8 @@ const TrackedDetails = ({
           <CTabContent className="mx-4 my-4">
             {arrWithOffers.map((props, index) => (
               <CTabPane key={index} data-tab={index}>
-                <SellerCharts />
+                <PriceCharts />
+                <CartCharts />
               </CTabPane>
             ))}
           </CTabContent>

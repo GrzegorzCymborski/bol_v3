@@ -28,7 +28,6 @@ const CartCharts = () => {
       },
       yaxis: {
         min: 0,
-        max: Math.max(data?.sales ? data.sales[0].amount! : 0) + 5,
       },
       chart: {
         type: 'area',
@@ -38,7 +37,7 @@ const CartCharts = () => {
       },
       labels: data?.sales?.map(({ updated_at }) => updated_at),
       title: {
-        text: 'Sold Charts',
+        text: 'Stock',
         align: 'left',
       },
       dataLabels: {
@@ -61,7 +60,7 @@ const CartCharts = () => {
     <>
       {data?.sales && (
         <>
-          <ReactApexChart options={chart.options} series={chart.series} type="bar" height="300px" />
+          <ReactApexChart options={chart.options} series={chart.series} type="bar" height="250px" />
           <CPagination
             activePage={data?.page?.current}
             pages={data?.page?.pages}
