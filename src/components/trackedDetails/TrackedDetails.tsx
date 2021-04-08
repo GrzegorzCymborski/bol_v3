@@ -57,7 +57,11 @@ const TrackedDetails = ({
         <CNav variant="tabs">
           {arrWithOffers.map(({ seller, _links, offer_url }, index) => (
             <CNavItem key={index}>
-              <CNavLink data-tab={index} onClick={() => handleTrackedProduct(_links.self!, offer_url)}>
+              <CNavLink
+                data-tab={index}
+                onClick={() => handleTrackedProduct(_links.self!, offer_url)}
+                style={{ color: 'gray' }}
+              >
                 {seller}
               </CNavLink>
             </CNavItem>
