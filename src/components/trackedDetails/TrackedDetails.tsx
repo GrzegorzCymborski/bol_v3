@@ -1,4 +1,15 @@
-import { CCard, CCardHeader, CCardBody, CNav, CNavItem, CNavLink, CTabs, CTabContent, CTabPane } from '@coreui/react';
+import {
+  CCard,
+  CCardHeader,
+  CCardBody,
+  CNav,
+  CNavItem,
+  CNavLink,
+  CTabs,
+  CTabContent,
+  CTabPane,
+  CLink,
+} from '@coreui/react';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import useFetchSellers from '../../hooks/useFetchSellers';
@@ -72,6 +83,14 @@ const TrackedDetails = ({
           <CTabContent className="mx-4 my-4">
             {arrWithOffers.map((props, index) => (
               <CTabPane key={index} data-tab={index}>
+                <CLink
+                  href={offerURL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white bg-secondary px-2"
+                >
+                  Offer link
+                </CLink>
                 <PriceCharts />
                 <CartCharts />
               </CTabPane>
