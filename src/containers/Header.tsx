@@ -1,7 +1,7 @@
 import { useAppSelector, useAppDispatch } from '../hooks/reduxHooks';
 import { changeState } from '../redux/sidebar';
-import { CHeader, CToggler, CSubheader, CLink } from '@coreui/react';
-import CIcon from '@coreui/icons-react';
+import { CHeader, CToggler, CSubheader, CHeaderNav } from '@coreui/react';
+import TheHeaderDropdown from './TheHeaderDropdown';
 
 const Header = () => {
   const dispatch = useAppDispatch();
@@ -16,12 +16,9 @@ const Header = () => {
     <CHeader withSubheader>
       <CToggler inHeader className="ml-md-3 d-lg-none" onClick={toggleSidebarMobile} />
       <CSubheader className="px-3 d-flex justify-content-end">
-        <div className="d-md-down-none mfe-2 c-subheader-nav">
-          <CLink className="c-subheader-nav-link" href="#">
-            <CIcon name="cil-settings" alt="Settings" />
-            &nbsp;Settings
-          </CLink>
-        </div>
+        <CHeaderNav className="px-3">
+          <TheHeaderDropdown />
+        </CHeaderNav>
       </CSubheader>
     </CHeader>
   );
