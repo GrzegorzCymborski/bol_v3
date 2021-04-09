@@ -63,7 +63,7 @@ const CartCharts = () => {
             activePage={data?.page?.current}
             pages={data?.page?.pages}
             onActivePageChange={(i: number) => setActivePage(i)}
-            align="center"
+            align="start"
             limit={5}
             size="sm"
             dots={false}

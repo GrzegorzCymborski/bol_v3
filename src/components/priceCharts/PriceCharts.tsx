@@ -94,11 +94,11 @@ const PriceCharts = () => {
     <>
       {data?.economies && (
         <>
-          <div className="d-flex ">
-            <div style={{ flexGrow: 3 }}>
+          <div className="d-flex flex-column flex-md-row ">
+            <div style={{ flexGrow: 1 }}>
               <ReactApexChart options={chartPrice.options} series={chartPrice.series} type="area" height="190px" />
             </div>
-            <div style={{ flexGrow: 1 }}>
+            <div style={{ width: '150px' }}>
               <ReactApexChart options={chartRating.options} series={chartRating.series} type="area" height="190px" />
             </div>
           </div>
@@ -106,7 +106,7 @@ const PriceCharts = () => {
             activePage={data?.page?.current}
             pages={data?.page?.pages}
             onActivePageChange={(i: number) => setActivePage(i)}
-            align="center"
+            align="start"
             limit={5}
             size="sm"
             dots={false}
