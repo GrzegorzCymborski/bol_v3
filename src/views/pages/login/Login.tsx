@@ -60,7 +60,7 @@ const Login = () => {
 
       <CContainer>
         <CRow className="justify-content-center">
-          <CCol md="8">
+          <CCol md="4">
             <CCardGroup>
               <CCard className="p-4">
                 <CCardBody>
@@ -125,27 +125,11 @@ const Login = () => {
                                 Login
                               </CButton>
                             </CCol>
-                            <CCol xs="6" className="text-right">
-                              <CButton color="link" className="px-0">
-                                Forgot password?
-                              </CButton>
-                            </CCol>
                           </CRow>
                         </CForm>
                       );
                     }}
                   </Formik>
-                </CCardBody>
-              </CCard>
-              <CCard className="text-white bg-primary py-5 d-md-down-none" style={{ width: '44%' }}>
-                <CCardBody className="text-center">
-                  <div>
-                    <h2>Sign up</h2>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                      labore et dolore magna aliqua.
-                    </p>
-                  </div>
                 </CCardBody>
               </CCard>
             </CCardGroup>
@@ -157,5 +141,3 @@ const Login = () => {
 };
 
 export default Login;
-
-// TODO: Fix types
