@@ -10,8 +10,6 @@ const PriceCharts = () => {
 
   const { data, refetch } = useEconomies(trackedProductID!, trackedOfferID!, activePage);
 
-  data ? console.log('data', data) : null;
-
   useEffect(() => {
     refetch();
   }, [trackedOfferID, trackedProductID, offerURL, refetch, activePage]);
@@ -96,9 +94,14 @@ const PriceCharts = () => {
     <>
       {data?.economies && (
         <>
-          <ReactApexChart options={chartPrice.options} series={chartPrice.series} type="area" height="300px" />
-          <ReactApexChart options={chartRating.options} series={chartRating.series} type="area" height="250px" />
-
+          <div className="d-flex ">
+            <div style={{ flexGrow: 3 }}>
+              <ReactApexChart options={chartPrice.options} series={chartPrice.series} type="area" height="190px" />
+            </div>
+            <div style={{ flexGrow: 1 }}>
+              <ReactApexChart options={chartRating.options} series={chartRating.series} type="area" height="190px" />
+            </div>
+          </div>
           <CPagination
             activePage={data?.page?.current}
             pages={data?.page?.pages}

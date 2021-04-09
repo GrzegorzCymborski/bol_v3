@@ -10,8 +10,6 @@ const CartCharts = () => {
 
   const { data, refetch } = useCarts(trackedProductID!, trackedOfferID!, activePage);
 
-  data ? console.log('data', data) : null;
-
   useEffect(() => {
     refetch();
   }, [trackedOfferID, trackedProductID, offerURL, refetch, activePage]);
@@ -60,7 +58,7 @@ const CartCharts = () => {
     <>
       {data?.sales && (
         <>
-          <ReactApexChart options={chart.options} series={chart.series} type="bar" height="250px" />
+          <ReactApexChart options={chart.options} series={chart.series} type="area" height="190px" />
           <CPagination
             activePage={data?.page?.current}
             pages={data?.page?.pages}
