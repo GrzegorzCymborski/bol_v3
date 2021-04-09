@@ -9,9 +9,12 @@ import {
   CSidebarMinimizer,
   CSidebarNavDropdown,
   CSidebarNavItem,
+  CSidebarBrand,
 } from '@coreui/react';
-
+import fullLogo from '../assets/icons/fullLogo.svg';
+import smallLogo from '../assets/icons/smallLogo.svg';
 import navigation from './_nav';
+import CIcon from '@coreui/icons-react';
 
 const Sidebar = () => {
   const dispatch = useAppDispatch();
@@ -24,6 +27,10 @@ const Sidebar = () => {
         dispatch(changeState(val));
       }}
     >
+      <CSidebarBrand className="d-md-down-none" to="/">
+        <CIcon className="c-sidebar-brand-full" height={35} src={fullLogo} />
+        <CIcon className="c-sidebar-brand-minimized" height={35} src={smallLogo} />
+      </CSidebarBrand>
       <CSidebarNav>
         <CCreateElement
           items={navigation}
