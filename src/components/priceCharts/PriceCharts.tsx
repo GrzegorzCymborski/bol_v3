@@ -38,7 +38,7 @@ const PriceCharts = () => {
       },
       labels: data?.economies?.map(({ updated_at }) => updated_at),
       title: {
-        text: 'Price Charts',
+        text: 'Price',
         align: 'left',
       },
       dataLabels: {

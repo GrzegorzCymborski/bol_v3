@@ -72,6 +72,7 @@ export const counterSlice = createSlice({
     logout: (state) => {
       state.userLoged = false;
       state.firebaseData = null;
+      state.userAuthID = null;
     },
   },
 });
