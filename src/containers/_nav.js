@@ -1,5 +1,6 @@
 import React from 'react';
 import CIcon from '@coreui/icons-react';
+import { auth } from '../firebase/firebase';
 
 const _nav = [
   {
@@ -38,6 +39,28 @@ const _nav = [
   },
   {
     _tag: 'CSidebarNavDivider',
+    className: 'flex-grow-1',
+  },
+
+  {
+    _tag: 'CSidebarNavDropdown',
+    name: 'Settings',
+    route: '/pages',
+    icon: <CIcon name="cil-cog" customClasses="c-sidebar-nav-icon" />,
+
+    _children: [
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Account settings',
+        to: '/dashboard/utils/settings',
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Log out',
+        to: '/register',
+        onClick: () => auth.signOut(),
+      },
+    ],
   },
   {
     _tag: 'CSidebarNavTitle',
@@ -45,9 +68,9 @@ const _nav = [
   },
   {
     _tag: 'CSidebarNavDropdown',
-    name: 'Pages',
+    name: 'Test Pages',
     route: '/pages',
-    icon: 'cil-star',
+    icon: <CIcon name="cil-bolt" customClasses="c-sidebar-nav-icon" />,
     _children: [
       {
         _tag: 'CSidebarNavItem',
@@ -70,10 +93,6 @@ const _nav = [
         to: '/500',
       },
     ],
-  },
-  {
-    _tag: 'CSidebarNavDivider',
-    className: 'm-2',
   },
 ];
 
