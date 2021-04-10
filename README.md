@@ -1,4 +1,4 @@
-## bolscraper v3🚀
+## BSApp (bolscraper v3)🚀
 
 > Database frontend 🚧
 

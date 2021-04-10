@@ -4,8 +4,8 @@ const Footer = () => {
   return (
     <CFooter fixed={false}>
       <div className="mfs-auto">
-        <a href="https://bolscraper.surge.sh" target="_blank" rel="noopener noreferrer">
-          bolscraper.surge.sh
+        <a href="https://bol-v3.surge.sh" target="_blank" rel="noopener noreferrer">
+          is🐕‍🦺
         </a>
       </div>
     </CFooter>
