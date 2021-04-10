@@ -5,8 +5,8 @@ import { auth, firestore } from './firebase/firebase';
 import { useAppSelector, useAppDispatch } from './hooks/reduxHooks';
 import { login, logout } from './redux/user';
 import Spinner from './components/spinner/Spinner';
+import Login from './views/pages/login/Login';
 
-const Login = lazy(() => import('./views/pages/login/Login'));
 const Layout = lazy(() => import('./containers/Layout'));
 
 const App = () => {
