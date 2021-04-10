@@ -1,8 +1,11 @@
 import { CDropdown, CDropdownItem, CDropdownMenu, CDropdownToggle, CImg } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
 import useUserData from '../hooks/useUserData';
+import { useHistory } from 'react-router-dom';
 
 const TheHeaderDropdown = () => {
+  const history = useHistory();
+
   const { firebaseData, logoutUser } = useUserData();
 
   return (
@@ -21,7 +24,7 @@ const TheHeaderDropdown = () => {
         <CDropdownItem header tag="div" color="secondary " className="text-center">
           <strong>Account</strong>
         </CDropdownItem>
-        <CDropdownItem>
+        <CDropdownItem onClick={() => history.push('/dashboard/utils/settings')}>
           <CIcon name="cil-bell" className="mfe-2" />
           Settings
         </CDropdownItem>

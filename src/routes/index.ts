@@ -5,6 +5,7 @@ const UploadEANs = React.lazy(() => import('../views/pages/uploadEANs/UploadEANs
 const Combine2 = React.lazy(() => import('../views/pages/combineFiles/CombineFiles'));
 const TrackedPage = React.lazy(() => import('../views/pages/trackedPage/TrackedPage'));
 const SearchPage = React.lazy(() => import('../views/pages/searchPage/SearchPage'));
+const SettingsPage = React.lazy(() => import('../views/pages/settingsPage/SettingsPage'));
 
 const routes = [
   { path: '/', exact: true, component: Dashboard },
@@ -13,6 +14,7 @@ const routes = [
   { path: '/dashboard', exact: true, component: Dashboard },
   { path: '/dashboard/utils/combine2', component: Combine2 },
   { path: '/dashboard/utils/uploadEAN', component: UploadEANs },
+  { path: '/dashboard/utils/settings', component: SettingsPage },
 ];
 
 export default routes;
