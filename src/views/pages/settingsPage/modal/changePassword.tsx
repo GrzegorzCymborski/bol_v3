@@ -41,7 +41,7 @@ const ChangePassword = ({ toggle }: { toggle: () => void }) => {
         </CInputGroupPrepend>
         <CInput
           name="password"
-          type="text"
+          type="password"
           value={values.password}
           onChange={handleChange}
           valid={!!(touched.password && !errors.password)}
@@ -57,7 +57,7 @@ const ChangePassword = ({ toggle }: { toggle: () => void }) => {
         </CInputGroupPrepend>
         <CInput
           name="confirmPassword"
-          type="text"
+          type="password"
           value={values.confirmPassword}
           onChange={handleChange}
           valid={!!(touched.confirmPassword && !errors.confirmPassword)}
