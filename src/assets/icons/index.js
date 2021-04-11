@@ -123,11 +123,13 @@ import {
   cilBarChart,
   cilBolt,
   cilCog,
+  cilAsteriskCircle,
 } from '@coreui/icons';
 
 export const icons = Object.assign(
   {},
   {
+    cilAsteriskCircle,
     cilCog,
     cilBolt,
     cilBarChart,

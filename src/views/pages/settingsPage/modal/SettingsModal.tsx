@@ -1,5 +1,6 @@
 import { CModal, CModalBody, CModalHeader } from '@coreui/react';
 import ChangeEmail from './changeEmail';
+import ChangePassword from './changePassword';
 
 type SettingsModalProps = {
   isOpen: boolean;
@@ -18,7 +19,7 @@ const SettingsModal = ({ isOpen, toggle, option }: SettingsModalProps) => {
       break;
     case 'pass':
       modalHeader = 'Change password';
-      modalBody = <ChangeEmail toggle={toggle} />;
+      modalBody = <ChangePassword toggle={toggle} />;
       break;
     case 'username':
       modalHeader = 'Change username';
