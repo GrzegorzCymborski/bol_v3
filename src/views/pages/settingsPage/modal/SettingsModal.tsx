@@ -32,7 +32,7 @@ const SettingsModal = ({ isOpen, toggle, option }: SettingsModalProps) => {
       break;
   }
   return (
-    <CModal show={isOpen} onClose={toggle} centered>
+    <CModal show={isOpen} onClose={toggle} centered closeOnBackdrop={false}>
       <CModalHeader closeButton>{modalHeader}</CModalHeader>
       <CModalBody>{modalBody}</CModalBody>
     </CModal>
